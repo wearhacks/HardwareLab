@@ -1,5 +1,7 @@
 ##Installation
 
+[![Join the chat at https://gitter.im/wearhacks/HardwareLab](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wearhacks/HardwareLab?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 ###Database installation
 Install Mongodb, and run mongo on the local computer 
