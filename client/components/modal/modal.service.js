@@ -129,6 +129,32 @@ angular.module('hardwarelabApp')
                 cb.apply(event, args); //this is where all callback is actually called
               });
             };
+      },
+      successMessage: function(cb) {
+        cb = cb || angular.noop;
+            
+            return function() {
+              var args = Array.prototype.slice.call(arguments),
+                  message = args.shift(),
+                  theModal;
+              theModal = openModal({ //openModal is a function the modal service defines.  It is just a wrapper for $Modal
+                modal: {
+                  dismissable: true,
+                  title: 'Success',
+                  html: '<p>' + message + '</p>', //set the modal message here, name is the parameter we passed in
+                  buttons: [ {//this is where you define you buttons and their appearances
+                    classes: 'btn-success',
+                    text: 'Ok',
+                    click: function(event) {
+                      theModal.dismiss(event);
+                    }
+                  }]
+                }
+              }, 'modal-primary');
+              theModal.result.then(function(event) {
+                cb.apply(event, args); //this is where all callback is actually called
+              });
+            };
       }
     }
   }});

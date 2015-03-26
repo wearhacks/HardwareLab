@@ -16,7 +16,8 @@ angular.module('hardwarelabApp')
       });
     });
 
-
+    $scope.modalError = Modal.confirm.errorMessage();
+    $scope.modalSuccess = Modal.confirm.successMessage();
 
     $scope.isAdmin = Auth.isAdmin();
     $scope.products;
@@ -44,11 +45,22 @@ angular.module('hardwarelabApp')
     $scope.addRental = function(reservation) {
       console.log(reservation);
       $http.post('/api/rentals', {reservation:reservation._id,user:reservation.user._id, product:reservation.product._id});
-    }
+    };
     $scope.removeReservation = function(reservation) {
         $http.delete('/api/reservation-requests/' + reservation._id);
-    }
+    };
 
+    $scope.returnRental = function(rental) {
+      console.log("returning rental");
+      $http.post('/api/rentals/return', rental)
+            .success(function(message) { 
+                    $scope.modalSuccess("Product returned successfully!");
+            })
+            .error(function(message) { 
+                    $scope.modalError("Oops,something went wrong! Could not return the product.");
+            });
+    };
+    
      /***
       Product methods
      **/
