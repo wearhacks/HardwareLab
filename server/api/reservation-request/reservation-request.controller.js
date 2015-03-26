@@ -93,7 +93,6 @@ exports.destroy = function(req, res) {
     reservation_request.remove(function(err) {
 
       //reduce reserved on product
-      console.log("hello"+ reservation_request);
       Product.findById(reservation_request.product,function(err,product) {
         product.reserved--;
         product.save(function (err) {

@@ -11,7 +11,7 @@ exports.index = function(req, res) {
   .populate('user')
   .populate('product')
   .exec(function (err, rentals) {
-    console.log(rentals);
+    
     if(err) { return handleError(res, err); }
     return res.json(200, rentals);
   });
@@ -63,6 +63,7 @@ exports.create_formatted = function(req, res) {
   var make_deleteReservation = function() {
     return function(err,reservation) { 
       console.log("removing reservation");
+      if (err) { return handleError(res, err); }
       if(!reservation) { return res.send(404); }
       reservation.remove(function(err) {
         if(err) { return handleError(res, err); }
@@ -74,7 +75,8 @@ exports.create_formatted = function(req, res) {
   //Update product values
   var make_updateProduct = function() {
     return function(err,product) {
-       product.rented++;
+          if (err) { return handleError(res, err); }
+          product.rented++;
           product.reserved--;
           product.save( function(err){
             if (err) { return handleError(res, err); }
@@ -97,20 +99,31 @@ exports.create_formatted = function(req, res) {
 };
 
 exports.returnProd = function(req, res) {
-  Rental.findById(req.body.id, function(err, rental) {
-    if(err) { return handleError(res, err); }
-    
 
-    Product.findById(req.body.id, function(err,product) {
+  Rental.findById(req.body._id, function(err, rental) {
+    if(err || !rental) { return handleError(res, err); }
+    
+    
+    Product.findById(req.body.product._id, function(err,product) {
+      if (err || !product) { return handleError(res, err); }
       product.rented--;
-      product.save(function(err){
-        rental.returned = true;
-        rental.save(function(err){ if (err)return handleError(res, err);});
+      console.log("product found");
+      product.save(function(err) {
         if (err) { return handleError(res, err); }
+        console.log("product saved");
+        rental.remove(function(err) { 
+                      if (err)return handleError(res, err);
+                      return res.json(204);
+
+                    });
+        
       });
     });
-    return res.json(201, rental);
+
+    
   });
+
+
 }
 // Updates an existing rental in the DB.
 exports.update = function(req, res) {

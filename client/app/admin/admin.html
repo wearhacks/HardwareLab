@@ -135,9 +135,12 @@
                 <th>Date loaned <input ng-model="search.date" type="text"></th>
             </tr>
             <tr ng-repeat="rental in rentals | filter:search:strict">
+
                 <td>{{rental.user.name}} </td>
                 <td>{{rental.product.name}}</td>
                 <td>{{rental.date | date:'medium'}} </td>
+                <td>{{rental.returned}} </td>
+                <td><a ng-show="!rental.returned" class="btn btn-success btn-small" href="#" ng-click="returnRental(rental)">Returned <i class="fa fa-check"></i></a></td>
             </tr>
         </table>
         
