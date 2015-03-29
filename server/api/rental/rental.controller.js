@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var async = require('async');
 var Rental = require('./rental.model');
 var Product = require('../product/product.model');
 var ReservationRequest = require('../reservation-request/reservation-request.model');
@@ -8,15 +9,61 @@ var ReservationRequest = require('../reservation-request/reservation-request.mod
 exports.index = function(req, res) {
   Rental
   .find()
-  .populate('user')
-  .populate('product')
+  .populate('user','name id')
+  .populate('product','name id')
   .exec(function (err, rentals) {
-    
+
     if(err) { return handleError(res, err); }
     return res.json(200, rentals);
   });
 };
 
+exports.archive = function(req, res) {
+  Rental
+    .find({returned:true})
+    .populate('user')
+    .populate('product')
+    .exec(function (err, rentals) {
+
+      if(err) { return handleError(res, err); }
+      return res.json(200, rentals);
+    });
+};
+
+exports.current = function(req, res) {
+  Rental
+    .find({returned:false})
+    .populate('user')
+    .populate('product')
+    .exec(function (err, rentals) {
+
+      if(err) { return handleError(res, err); }
+      return res.json(200, rentals);
+    });
+};
+exports.user_rental = function(req, res) {
+  Rental
+    .find({user:req.params.id})
+    .populate('user')
+    .populate('product')
+    .exec(function (err, rentals) {
+
+      if(err) { return handleError(res, err); }
+      return res.json(200, rentals);
+    });
+};
+
+exports.product_rental = function(req, res) {
+  Rental
+    .find({product:req.params.id})
+    .populate('user')
+    .populate('product')
+    .exec(function (err, rentals) {
+
+      if(err) { return handleError(res, err); }
+      return res.json(200, rentals);
+    });
+};
 
 // Get a single rental
 exports.show = function(req, res) {
@@ -31,96 +78,84 @@ exports.show = function(req, res) {
 
 // Creates a new rental in the DB.
 
-//@nadbm: This is what callback hell looks like, look at the function below, makes no sense =/
-// Look at exports.create_formatted to see how to somewhat format this
 exports.create = function(req, res) {
-  Rental.create(req.body, function(err, rental) {
-    if(err) { return handleError(res, err); }
-    console.log("removing reservation");
-    ReservationRequest.findById(req.body.reservation, function(err,reservation){ 
-      if(!reservation) { return res.send(404); }
-      reservation.remove(function(err) {
-        if(err) { return handleError(res, err); }
-         Product.findById(req.body.product, function(err,product) {
-          product.rented++;
-          product.reserved--;
-          product.save(function(err){
-            if (err) { return handleError(res, err); }
+  //@nadbm Using Async to avoid callback hell
+  async.waterfall([
+    function(next) {
+      Rental.where({ product : req.body.product,returned : false }).count(next);
+    },
+    function(rentalCount,next) {
 
-          });
-        });
-      });
-    });
-   
-    return res.json(201, rental);
+      Product.findById(req.body.product).exec(function(err,product){next(err,rentalCount,product)});
+
+    },
+    function(rentalCount, product,next) {
+      if(rentalCount >= product.quantity)
+        return res.json(400, {error:"Every "+product.name+" have been rented out. Try later."});
+      else
+        ReservationRequest.findById(req.body.reservation,next);
+    },
+    function(reservation,next) {
+      reservation.remove(next);
+    },
+    function(removedRes,next) {
+      Rental.create(req.body,next);
+    }
+  ], function (err, rental) {
+    if(err)
+      return handleError(res, err);
+    else
+      return res.json(201, rental);
   });
-};
 
+  //The code below is what Im avoiding by using Async
+/*
+  Rental.where({ product : req.body.product }).count(function(err,rentalCount) {
 
-exports.create_formatted = function(req, res) {
-
-  //Delete associated reservation
-  var make_deleteReservation = function() {
-    return function(err,reservation) { 
-      console.log("removing reservation");
-      if (err) { return handleError(res, err); }
-      if(!reservation) { return res.send(404); }
-      reservation.remove(function(err) {
-        if(err) { return handleError(res, err); }
-        
-        Product.findById(req.body.product, make_updateProduct());
-      });
-    }
-  };
-  //Update product values
-  var make_updateProduct = function() {
-    return function(err,product) {
-          if (err) { return handleError(res, err); }
-          product.rented++;
-          product.reserved--;
-          product.save( function(err){
-            if (err) { return handleError(res, err); }
-             Rental.create(req.body,make_createRental());
-          });
-    }
-  };
-  //Create rental
-  var make_createRental = function() {
-    return function(err, rental) {
+    Product.findById(req.body.product, function(err,product) {
+        console.log(product);
+        if (err) { return handleError(res, err); }
+        if(rentalCount < product.quantity) {
+          //remove reservation
+          ReservationRequest.findById(req.body.reservation, function(err,reservation){
+            if(!reservation) { return res.send(404); }
+            reservation.remove(function(err) {
               if(err) { return handleError(res, err); }
-              return res.json(201, rental);
-    };
-  };
 
-  //Find reservation and delete it
-  ReservationRequest.findById(req.body.reservation, make_deleteReservation());
- 
+              Rental.create(req.body, function(err, rental) {
+                if(err) { return handleError(res, err); }
+                return res.json(201, rental);
+              });
+            });
+          });
+        }
+        else {
+          return res.json(304, {error:"Every "+product.name+" have been rented out. Try later."});
+        }
 
+
+    });
+  });
+
+*/
 };
+
+
 
 exports.returnProd = function(req, res) {
 
   Rental.findById(req.body._id, function(err, rental) {
     if(err || !rental) { return handleError(res, err); }
-    
-    
-    Product.findById(req.body.product._id, function(err,product) {
-      if (err || !product) { return handleError(res, err); }
-      product.rented--;
-      console.log("product found");
-      product.save(function(err) {
-        if (err) { return handleError(res, err); }
-        console.log("product saved");
-        rental.remove(function(err) { 
-                      if (err)return handleError(res, err);
-                      return res.json(204);
 
-                    });
-        
-      });
+
+    rental.returned = true;
+    rental.save(function(err,rental) {
+      if (err)return handleError(res, err);
+      return res.json(200,rental);
+
     });
 
-    
+
   });
 
 

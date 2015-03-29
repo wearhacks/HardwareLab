@@ -16,11 +16,12 @@ exports.register = function(socket) {
 }
 
 function onSave(socket, doc, cb) {
- 
-  ReservationRequest.populate(doc,['user','product'],function(err,doc){socket.emit('reservation-request:save', doc);});
+
+
+  ReservationRequest.populate(doc,{path:'user product',select:'_id name'},
+    function(err,doc){socket.emit('reservation-request:save', doc);});
 }
 
 function onRemove(socket, doc, cb) {
-  console.log("auto-delete" + doc);
   socket.emit('reservation-request:remove', doc);
 }

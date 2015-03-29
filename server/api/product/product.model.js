@@ -8,10 +8,10 @@ var ProductSchema = new Schema({
   description: String,
   active: Boolean,
   quantity: { type: Number, min: 0},
-  reserved: {type:Number, min:0, default: 0},
-  rented: {type:Number, min:0, default: 0},
   image: String
 
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
+
+
