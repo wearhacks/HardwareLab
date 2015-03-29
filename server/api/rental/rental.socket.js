@@ -17,12 +17,13 @@ exports.register = function(socket) {
 
 function onSave(socket, doc, cb) {
   console.log("really?");
+  //@TODO: only send non-archive rentals
   Rental.populate(doc,['user','product'],function(err,doc){socket.emit('rental:save', doc);});
 
-  
+
 }
 
 function onRemove(socket, doc, cb) {
-	console.log("really?REMOVED Rental");
+
   socket.emit('rental:remove', doc);
 }

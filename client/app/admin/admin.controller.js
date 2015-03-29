@@ -6,7 +6,7 @@ angular.module('hardwarelabApp')
     // Use the User $resource to fetch all users
     $scope.users = User.query();
 
-   
+
     $scope.delete = Modal.confirm.delete(function(user) { // callback when modal is confirmed
       User.remove({ id: user._id });
       angular.forEach($scope.users, function(u, i) {
@@ -43,8 +43,15 @@ angular.module('hardwarelabApp')
       Rental requests
     **/
     $scope.addRental = function(reservation) {
-      console.log(reservation);
-      $http.post('/api/rentals', {reservation:reservation._id,user:reservation.user._id, product:reservation.product._id});
+      console.log("here?");
+      $http.post('/api/rentals', {reservation:reservation._id,user:reservation.user._id, product:reservation.product._id})
+        .success(function(message) {
+          $scope.modalSuccess("Created a new rental successfully");
+        })
+        .error(function(message) {
+          console.log(message);
+          $scope.modalError(message.error);
+        });;
     };
     $scope.removeReservation = function(reservation) {
         $http.delete('/api/reservation-requests/' + reservation._id);
@@ -53,14 +60,14 @@ angular.module('hardwarelabApp')
     $scope.returnRental = function(rental) {
       console.log("returning rental");
       $http.post('/api/rentals/return', rental)
-            .success(function(message) { 
+            .success(function(message) {
                     $scope.modalSuccess("Product returned successfully!");
             })
-            .error(function(message) { 
+            .error(function(message) {
                     $scope.modalError("Oops,something went wrong! Could not return the product.");
             });
     };
-    
+
      /***
       Product methods
      **/

@@ -7,8 +7,8 @@
                                     <p>{{product.description}}</p>
                                     <p>{{product.quantity}}</p>
                                     <div class="image" style="background-image:url('{{product.image}}')}"></div>
-                                    
-                                Reserved: {{product.reserved}} Rented: {{product.rented}}
+
+                                Reserved: {{getProductReserved(product).length}} Rented: {{getProductRentals(product).length}}
             <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product</a>
     </div>
 </div>

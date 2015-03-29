@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var async = require('async');
 var ReservationRequest = require('./reservation-request.model');
 var Rental = require('../rental/rental.model');
 var Product = require('../product/product.model');
@@ -9,8 +10,8 @@ var Product = require('../product/product.model');
 exports.index = function(req, res) {
   ReservationRequest
   .find()
-  .populate('user')
-  .populate('product')
+  .populate('user','name id')
+  .populate('product','name id')
   .exec(function (err, reservation_requests) {
     //console.log(reservation_requests);
     if(err) { return handleError(res, err); }
@@ -34,40 +35,45 @@ exports.show = function(req, res) {
 
 // Creates a new reservation_request in the DB.
 exports.create = function(req, res) {
-  //@nadbm @TODO: dont let same user reserve multiple times!! Send proper json message to handle
-  //this on the front-end
+  if(!req.body.user) { return res.send(400); }
 
-  ReservationRequest.count(req.body, function (err, count) {
-    if(count > 0)
-      return res.json(400,{error: "You are already on the waitlist!"}); 
-    Rental.count(req.body,function(err,rental_count) {
-      if(rental_count > 0)
-        return res.json(400,{error: "You already rented this item!"}); 
-      if(!req.body.user) { return res.send(400); }
-      ReservationRequest.create(req.body, function(err, reservation_request) {
-      //find product and update reserved numbers
-
-      Product.findById(req.body.product,function(err,product) {
-        if((product.reserved + product.rented) < product.quantity) {
-          product.reserved++;
-          product.save(function (err) {
-            if (err) { return handleError(res, err); }
-            return res.json(201, reservation_request);
-          });
-        }
-        else {
-          return res.json(400,{error: "No "+product.name+" can be reserved. There are none left :(. Try again later!"});
-        }
-      });
-
-
-
-
-    });
-
-    });
-    
+  async.waterfall([
+    function(next) {
+      ReservationRequest.count(req.body,next);
+    },
+    function(reservCount,next) {
+      if(reservCount > 0)
+        return res.json(400,{error: "You are already on the waitlist!"});
+      else
+        Rental.count(req.body,next);
+    },
+    function(rentalCount,next) {
+      if(rentalCount > 0)
+        return res.json(400,{error: "You already rented this item!"});
+      else
+        Product.findById(req.body.product,next);
+        // ReservationRequest.create(req.body,next);
+    },
+    function(product,next) {
+        ReservationRequest.count({product:req.body.product},function(err,res_count) {next(err,product.quantity,res_count)});
+    },
+    function(product_qty,reservCount,next) {
+        Rental.count({product:req.body.product, returned:false},function(err,rentalCount) {next(err,product_qty,reservCount,rentalCount)});
+    },
+    function(product_qty,reservCount,rentalCount,next) {
+      if((reservCount+rentalCount) >= product_qty)
+        return res.json(400,{error: "Sorry, none available currently, check later!"});
+      else
+       ReservationRequest.create(req.body,next);
+    }
+  ], function (err, reservation) {
+    if(err)
+      return handleError(res, err);
+    else
+      return res.json(201, reservation);
   });
+
+
 };
 
 // Updates an existing reservation_request in the DB.
@@ -92,18 +98,10 @@ exports.destroy = function(req, res) {
     if(!reservation_request) { return res.send(404); }
     reservation_request.remove(function(err) {
 
-      //reduce reserved on product
-      Product.findById(reservation_request.product,function(err,product) {
-        product.reserved--;
-        product.save(function (err) {
-          console.log(product.name+" has been reserved +1");
-          if (err) { return handleError(res, err); }
-          return res.send(204);
-        });
-      });
+
 
       if(err) { return handleError(res, err); }
-      
+
     });
   });
 };
