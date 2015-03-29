@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth,Modal, User,socket, $upload) {
+  .controller('AdminCtrl', function ($scope, $http, Auth,Modal, User,socket, $upload,productService) {
 
     // Use the User $resource to fetch all users
     $scope.users = User.query();
-
+    $scope.productService =  productService;
 
     $scope.delete = Modal.confirm.delete(function(user) { // callback when modal is confirmed
       User.remove({ id: user._id });
@@ -20,52 +20,33 @@ angular.module('hardwarelabApp')
     $scope.modalSuccess = Modal.confirm.successMessage();
 
     $scope.isAdmin = Auth.isAdmin();
-    $scope.products;
-    $scope.reservations;
-    $scope.rentals;
 
 
-    $http.get('/api/products').success(function(products) {
-      $scope.products = products;
-        socket.syncUpdates('product', $scope.products);
-    });
-
-    $http.get('/api/reservation-requests').success(function(reservations) {
-      $scope.reservations = reservations;
-        socket.syncUpdates('reservation-request', $scope.reservations);
-    });
-
-    $http.get('/api/rentals/current').success(function(rentals) {
-      $scope.rentals = rentals;
-        socket.syncUpdates('rental', $scope.rentals);
-    });
     /**
       Rental requests
     **/
     $scope.addRental = function(reservation) {
-      console.log("here?");
-      $http.post('/api/rentals', {reservation:reservation._id,user:reservation.user._id, product:reservation.product._id})
+      productService.addRental(reservation)
         .success(function(message) {
           $scope.modalSuccess("Created a new rental successfully");
         })
         .error(function(message) {
-          console.log(message);
           $scope.modalError(message.error);
-        });;
+        });
     };
+
     $scope.removeReservation = function(reservation) {
-        $http.delete('/api/reservation-requests/' + reservation._id);
+      productService.deleteReservation(reservation);
     };
 
     $scope.returnRental = function(rental) {
-      console.log("returning rental");
-      $http.post('/api/rentals/return', rental)
-            .success(function(message) {
-                    $scope.modalSuccess("Product returned successfully!");
-            })
-            .error(function(message) {
-                    $scope.modalError("Oops,something went wrong! Could not return the product.");
-            });
+      productService.returnRental(rental)
+        .success(function(message) {
+          $scope.modalSuccess("Product returned successfully!");
+        })
+        .error(function(message) {
+          $scope.modalError("Oops,something went wrong! Could not return the product.");
+        });
     };
 
      /***
@@ -77,11 +58,12 @@ angular.module('hardwarelabApp')
       }
       $scope.product.image = "/assets/images/products/"+$scope.product.name+"-"+$scope.files[0].name;
       $scope.upload($scope.files);
-      $http.post('/api/products', product);
+      productService.addProduct(product);
       $scope.product = '';
     };
     $scope.deleteProduct = function(product) {
-      $http.delete('/api/products/' + product._id);
+      console.log(product);
+      productService.deleteProduct(product);
     };
 
     $scope.upload = function (files) {
@@ -103,15 +85,5 @@ angular.module('hardwarelabApp')
             }
         }
     };
-
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('product');
-    });
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('reservation-request');
-    });
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('rental');
-    });
 
   });

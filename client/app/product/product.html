@@ -2,13 +2,13 @@
 
 
 <div class="container">
-	<div class="product" ng-repeat="product in products">
+	<div class="product" ng-repeat="product in productService.getProducts()">
         <h4>{{product.name}}</h4>
                                     <p>{{product.description}}</p>
                                     <p>{{product.quantity}}</p>
                                     <div class="image" style="background-image:url('{{product.image}}')}"></div>
 
-                                Reserved: {{getProductReserved(product).length}} Rented: {{getProductRentals(product).length}}
+                                Reserved: {{productService.getProductReserved(product).length}} Rented: {{productService.getProductRentals(product).length}}
             <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product</a>
     </div>
 </div>
