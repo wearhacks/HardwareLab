@@ -34,7 +34,7 @@
                             <textarea type="text" rows="5" class="form-control" id="description" ng-model="product.description" name="description">
                             </textarea>
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group">
                         <label for="amount" class="col-sm-3 control-label">Quantity</label>
                         <div class="col-sm-9">
@@ -53,10 +53,10 @@
 
                     <div class="form-group">
                         <div class="upload-group">
-                            <h4 ng-file-select="" ng-file-drop="" ng-model="files" ng-model-rejected="rejFiles"  ng-accept="accept" accept="{{acceptSelect}}" ng-disabled="disabled" ng-capture="capture" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" allow-dir="allowDir" class="drop-box" drop-available="dropAvailable">Select Product Image 
+                            <h4 ng-file-select="" ng-file-drop="" ng-model="files" ng-model-rejected="rejFiles"  ng-accept="accept" accept="{{acceptSelect}}" ng-disabled="disabled" ng-capture="capture" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" allow-dir="allowDir" class="drop-box" drop-available="dropAvailable">Select Product Image
                                 <span ng-show="dropAvailable">or Drop</span>
                             </h4>
-                                
+
                         </div>
 
                     </div>
@@ -65,7 +65,7 @@
                         <div class="col-sm-9">
                             <p><i>{{files[0].name}}</i></p>
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
                             <button type="button" class="btn btn-default preview-add-button" ng-click="addProduct(product)">
@@ -73,9 +73,9 @@
                             </button>
                         </div>
                     </div>
-                    
+
                 </div>
-            </div>            
+            </div>
         </div> <!-- / panel preview -->
         <div class="col-sm-7">
             <h4>Current Products:</h4>
@@ -93,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="product in products"> 
+                                <tr ng-repeat="product in productService.getProducts()">
                                     <td>{{product.name}}</td>
                                     <td>{{product.description}}</td>
                                     <td>{{product.quantity}}</td>
@@ -103,21 +103,21 @@
 
                             </tbody> <!-- preview content goes here-->
                         </table>
-                    </div>                            
+                    </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-xs-12">
                     <hr style="border:1px dashed #dddddd;">
                     <button type="button" ng-click="reserveProduct()" class="btn btn-primary btn-block">Submit all and finish</button>
-                </div>                
+                </div>
             </div>
         </div>
 	</div>
     <div class="row">
         <h1>Reservation Requests</h1>
-        <div class="alert alert-block clearfix" ng-repeat="reservation in reservations">
+        <div class="alert alert-block clearfix" ng-repeat="reservation in productService.getReservations()">
           <div style="float:left"><h4 class="alert-heading">Alert block</h4>
           <p>{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p> </div>
           <span class="pull-right">
@@ -134,7 +134,7 @@
                 <th>Product <input ng-model="search.product.name" type="text"></th>
                 <th>Date loaned <input ng-model="search.date" type="text"></th>
             </tr>
-            <tr ng-repeat="rental in rentals | filter:search:strict">
+            <tr ng-repeat="rental in productService.getActiveRentals() | filter:search:strict">
 
                 <td>{{rental.user.name}} </td>
                 <td>{{rental.product.name}}</td>
@@ -143,6 +143,6 @@
                 <td><a ng-show="!rental.returned" class="btn btn-success btn-small" href="#" ng-click="returnRental(rental)">Returned <i class="fa fa-check"></i></a></td>
             </tr>
         </table>
-        
+
     </div>
 </div>
