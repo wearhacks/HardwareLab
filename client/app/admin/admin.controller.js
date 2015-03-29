@@ -35,7 +35,7 @@ angular.module('hardwarelabApp')
         socket.syncUpdates('reservation-request', $scope.reservations);
     });
 
-    $http.get('/api/rentals').success(function(rentals) {
+    $http.get('/api/rentals/current').success(function(rentals) {
       $scope.rentals = rentals;
         socket.syncUpdates('rental', $scope.rentals);
     });

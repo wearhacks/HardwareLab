@@ -45,7 +45,7 @@ exports.create = function(req, res) {
       if(reservCount > 0)
         return res.json(400,{error: "You are already on the waitlist!"});
       else
-        Rental.count(req.body,next);
+        Rental.count({user:req.body.user,product:req.body.product,returned:false},next);
     },
     function(rentalCount,next) {
       if(rentalCount > 0)

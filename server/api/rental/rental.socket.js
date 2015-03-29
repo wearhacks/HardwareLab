@@ -16,9 +16,15 @@ exports.register = function(socket) {
 }
 
 function onSave(socket, doc, cb) {
-  console.log("really?");
+
   //@TODO: only send non-archive rentals
-  Rental.populate(doc,['user','product'],function(err,doc){socket.emit('rental:save', doc);});
+  Rental.populate(doc,['user','product'],
+    function(err,doc){
+      if(doc.returned == false)
+        socket.emit('rental:save', doc);
+      else
+        socket.emit('rental:remove', doc);
+    });
 
 
 }
