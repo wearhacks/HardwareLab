@@ -2,12 +2,13 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstr
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
 
-@import "bootswatch-scss/amelia/variables";
+@import "bootswatch-scss/flatly/variables";
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 
-@import "bootswatch-scss/amelia/bootswatch";
+@import "bootswatch-scss/flatly/bootswatch";
 
 @import 'font-awesome/scss/font-awesome';
+
 
 /**
  * App-wide Styles

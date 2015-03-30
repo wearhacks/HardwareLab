@@ -117,8 +117,8 @@
 	</div>
     <div class="row">
         <h1>Reservation Requests</h1>
-        <div class="alert alert-block clearfix" ng-repeat="reservation in productService.getReservations()">
-          <div style="float:left"><h4 class="alert-heading">Alert block</h4>
+        <div class="alert alert-info clearfix" ng-repeat="reservation in productService.getReservations()">
+          <div style="float:left">
           <p>{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p> </div>
           <span class="pull-right">
           <a class="btn btn-success btn-small" href="#" ng-click="addRental(reservation)">Accept <i class="fa fa-check"></i></a>
