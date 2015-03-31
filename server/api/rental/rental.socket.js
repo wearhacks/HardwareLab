@@ -20,7 +20,7 @@ function onSave(socket, doc, cb) {
   //@TODO: only send non-archive rentals
   Rental.populate(doc,['user','product'],
     function(err,doc){
-      if(doc.returned == false)
+      if(doc.returned === false)
         socket.emit('rental:save', doc);
       else
         socket.emit('rental:remove', doc);
