@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var fs = require('fs-extra');
 var Product = require('./product.model');
 
 // Get list of products
@@ -50,6 +51,29 @@ exports.destroy = function(req, res) {
     product.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
+    });
+  });
+};
+
+exports.upload = function (req, res) {
+
+  var fstream;
+  req.pipe(req.busboy);
+
+  var receivedProduct = '';
+  req.busboy.on('field', function(fieldname, val) {
+    if(fieldname === 'product') receivedProduct = val;
+  });
+  req.busboy.on('file', function (fieldname, file, filename) {
+
+    console.log("Uploading: " + filename);
+
+    //Path where image will be uploaded
+    fstream = fs.createWriteStream(__dirname + '/../../../client/assets/images/products/'+receivedProduct+"-"+ filename);
+    file.pipe(fstream);
+    fstream.on('close', function () {
+      console.log("Upload Finished of " + filename);
+      res.redirect('back');           //where to go next
     });
   });
 };
