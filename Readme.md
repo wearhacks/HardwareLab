@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/wearhacks/HardwareLab.png?label=ready&title=Ready)](https://waffle.io/wearhacks/HardwareLab)
 ##Installation
 
 
