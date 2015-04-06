@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth,Modal, User,socket, $upload,productService) {
+  .controller('AdminCtrl', function ($scope, $http,$location, Auth,Modal, User,socket, $upload,productService) {
 
     // Use the User $resource to fetch all users
     $scope.users = User.query();
@@ -19,9 +19,12 @@ angular.module('hardwarelabApp')
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
 
-    $scope.isAdmin = Auth.isAdmin();
+    $scope.isAdmin = Auth.isAdmin;
 
-
+    if (!Auth.isAdmin()) {
+      console.log('DENY');
+      $location.path('/');
+    }
     /**
       Rental requests
     **/

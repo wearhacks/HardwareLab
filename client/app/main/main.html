@@ -11,15 +11,14 @@
           <p class="lead">Built with <i class="fa fa-heart"></i> by WearHacks</p>
 
       </div>
-      <div ng-show="!isLogged" class="row">
+      <div ng-show="!isLogged()" class="row">
         <div id="header-buttons">
         <a class="btn btn-success btn-large" href="/login">Login</a>
         <a class="btn btn-success btn-large" href="/signup">Signup</a>
         </div>
       </div>
 
-        <div ng-show="isLogged" class="row">
-          <p>Welcome {{user.name}}!</p>
+        <div ng-show="isLogged()" class="row">
           <div id="header-buttons">
             <a class="btn btn-success btn-large" href="/product">Enter Store</a>
           </div>
