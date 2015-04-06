@@ -8,9 +8,7 @@
     border-radius: 5px 5px 0 0;
   }
 }
-.modal-dialog {
-  margin-top: 30%;
-}
+
 .modal-primary .modal-header {
   background: $brand-primary;
 }
@@ -25,4 +23,10 @@
 }
 .modal-danger .modal-header {
   background: $brand-danger;
+}
+
+.modal-dialog {
+  transform: translate(0, 50%) !important;
+  -ms-transform: translate(0, 50%) !important; /* IE 9 */
+  -webkit-transform: translate(0, 50%) !important; /* Safari and Chrome */
 }
