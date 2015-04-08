@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductCtrl', function ($http, $upload, $scope,Auth,socket,Modal,$location,productService) {
+  .controller('ProductCtrl', function ($upload, $scope,Auth,Modal,$location,productService) {
     $scope.isAdmin = Auth.isAdmin();
     $scope.message = 'Hello';
 
 
     $scope.productService = productService;
-    productService.syncUpdates();
+
 
     $scope.modalLogin = Modal.confirm.askToLogin(function(message) { // callback when modal is confirmed
         $location.path("/login"); //will redirect to login page, make sure your controller is using $location

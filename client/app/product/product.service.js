@@ -48,8 +48,17 @@ angular.module('hardwarelabApp')
       getProductReserved : function(product) {
           return reservations.filter(function(elem){ if(elem.product._id == product._id) return true;});
       },
-      reserveProduct: function(user_id,product_id) {
-         return $http.post('/api/reservation-requests', {user:user_id,product:product_id});
+      getUserActiveRentals: function(userId) {
+        return rentals.filter(function(rental){ if(rental.user._id == userId) return true;});
+      },
+      getUserReservations: function(userId) {
+        return reservations.filter(function(reserv){ if(reserv.user._id == userId) return true;});
+      },
+      hasUserReservedProduct: function(userId,productId) {
+
+      },
+      reserveProduct: function(userId,productId) {
+         return $http.post('/api/reservation-requests', {user:userId,product:productId});
       },
       addRental: function(reservation) {
         return $http.post('/api/rentals', {reservation:reservation._id,user:reservation.user._id, product:reservation.product._id});
