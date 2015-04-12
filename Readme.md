@@ -3,7 +3,7 @@
 
 
 ###Database installation
-Install Mongodb, and run mongo on the local computer
+Install Mongodb, and run mongo on the [local computer](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/)
 
 ```sudo mongod```
 
