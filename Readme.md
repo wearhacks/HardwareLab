@@ -3,7 +3,8 @@
 
 
 ###Database installation
-Install Mongodb, and run mongo on the local computer 
+Install Mongodb, and run mongo on the local computer
+```sudo mongod```
 
 ###Dependencies installation
 Get the dependencies: in the root directory run
