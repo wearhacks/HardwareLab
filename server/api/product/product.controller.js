@@ -69,7 +69,7 @@ exports.upload = function (req, res) {
     console.log("Uploading: " + filename);
 
     //Path where image will be uploaded
-    fstream = fs.createWriteStream(__dirname + '/../../../client/assets/images/products/'+receivedProduct+"-"+ filename);
+    fstream = fs.createWriteStream(__dirname + '/../../../client/assets/product-images/'+receivedProduct+"-"+ filename);
     file.pipe(fstream);
     fstream.on('close', function () {
       console.log("Upload Finished of " + filename);
