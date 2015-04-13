@@ -1,0 +1,28 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+  <h1>My Reservation Requests</h1>
+  {{getUser()}}
+  <ul class="list-group">
+    <li ng-repeat="reservation in productService.getUserReservations(userId)" class="list-group-item">
+      <span class="label label-success pull-right">Requested</span>
+      You have a reservation for {{reservation.product.name}}.
+
+      You have to pick it up <strong>{{reservationDue(reservation.createdAt)}}</strong>.
+    </li>
+  </ul>
+  </div>
+  <div class="row">
+<h1>My Rentals</h1>
+  <ul class="list-group">
+    <li ng-repeat="rental in productService.getUserActiveRentals(userId)" class="list-group-item">
+      <span class="badge">Due on ...</span>
+      You rented a  {{rental.product.name}} on {{rental.date | date:medium}}
+
+    </li>
+
+  </ul>
+    {{a.format('MMMM Do YYYY, h:mm:ss a')}}
+    </div>
+</div>

@@ -59,7 +59,7 @@ angular.module('hardwarelabApp')
       if($scope.product === '') {
         return;
       }
-      $scope.product.image = "/assets/images/products/"+$scope.product.name+"-"+$scope.files[0].name;
+      $scope.product.image = "/assets/product-images/"+$scope.product.name+"-"+$scope.files[0].name;
       $scope.upload($scope.files);
       productService.addProduct(product);
       $scope.product = '';
