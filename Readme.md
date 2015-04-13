@@ -8,18 +8,23 @@ Install Mongodb, and run mongo on the [local computer](http://docs.mongodb.org/m
 ```sudo mongod```
 
 ###Dependencies installation
-Get the dependencies: in the root directory run
+Make sure to have [node and npm](https://nodejs.org/download/) installed to the latest version
 
-####Install Bower
+Install yo, grunt and bower for dev purposes
+
+```npm install -g yo grunt-cli bower```
+
+####Dependencies Installation
+
+Client-side dependencies
 ```
-sudo bower install
+bower install
+```
+Server-side dependencies
+```
+npm install
 ```
 
-####Installing [Grunt](http://gruntjs.com/getting-started)
-```
-npm install grunt --save-dev
-npm install --save-dev
-```
 
 ###Launch
 Run the server
