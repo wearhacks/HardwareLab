@@ -3,13 +3,22 @@
 
 
 ###Database installation
-Install Mongodb, and run mongo on the local computer 
+Install Mongodb, and run mongo on the [local computer](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/)
+
+```sudo mongod```
 
 ###Dependencies installation
 Get the dependencies: in the root directory run
 
+####Install Bower
 ```
-sudo bower install & npm install 
+sudo bower install
+```
+
+####Installing [Grunt](http://gruntjs.com/getting-started)
+```
+npm install grunt --save-dev
+npm install --save-dev
 ```
 
 ###Launch
