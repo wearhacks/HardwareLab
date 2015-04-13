@@ -10,6 +10,8 @@
       You have a reservation for {{reservation.product.name}}.
 
       You have to pick it up <strong>{{reservationDue(reservation.createdAt)}}</strong>.
+      Expires: {{reservation.expires}}
+      {{reservation.createdAt}}
     </li>
   </ul>
   </div>
@@ -23,6 +25,5 @@
     </li>
 
   </ul>
-    {{a.format('MMMM Do YYYY, h:mm:ss a')}}
     </div>
 </div>

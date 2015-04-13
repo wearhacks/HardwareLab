@@ -5,6 +5,7 @@ var async = require('async');
 var ReservationRequest = require('./reservation-request.model');
 var Rental = require('../rental/rental.model');
 var Product = require('../product/product.model');
+var Scheduler = require('../../scheduler');
 
 // Get list of reservation_requests
 exports.index = function(req, res) {
@@ -69,8 +70,11 @@ exports.create = function(req, res) {
   ], function (err, reservation) {
     if(err)
       return handleError(res, err);
-    else
+    else {
+      Scheduler.scheduleDeleteReservation(reservation);
       return res.json(201, reservation);
+
+    }
   });
 
 
