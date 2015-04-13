@@ -13,7 +13,6 @@ angular.module('hardwarelabApp')
     console.log($scope.date);
 
     $scope.reservationDue = function(reserveTime) {
-
       return moment(reserveTime).calendar().toLowerCase();
     }
   });

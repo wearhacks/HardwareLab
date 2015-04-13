@@ -51,6 +51,11 @@ var all = {
     clientID:     process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
+  },
+
+  rental: {
+    reservationTime: 5*60000, //5 min before reservation ends!
+    rentalTime: '1 day'
   }
 };
 
