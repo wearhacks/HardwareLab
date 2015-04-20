@@ -54,8 +54,8 @@ var all = {
   },
 
   rental: {
-    reservationTime: 5*60000, //5 min before reservation ends!
-    rentalTime: '1 day'
+    reservationTime: 60*60000, //60 min before reservation ends!
+    rentalTime: 12*60*60000 //12 hours
   }
 };
 

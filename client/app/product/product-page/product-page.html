@@ -1,0 +1,46 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div id="product-page">
+<div class="container-fluid">
+  <div class="jumbotron" style="background-image:url('{{product.image }}')">
+    <div class="container">
+
+     <div class="row">
+       <h1 class="editable-data">{{product.name}}</h1>
+       <!--Live edit -->
+       <a ng-show="isAdmin()" class="editable-links" href="#"
+          e-row="8" editable-textarea="product.name" blur="ignore"
+          onaftersave="productService.saveProduct(product)">
+         <i class="fa fa-pencil"></i>
+       </a>
+
+     </div>
+
+  <div class="row">
+      <a ng-show="isAdmin()" class="editable-links" href="#"
+         e-row="8" editable-textarea="product.company" blur="ignore"
+         onaftersave="productService.saveProduct(product)">
+        <i class="fa fa-pencil"></i>
+      </a>
+        <h4>{{product.company}}</h4>
+  </div>
+
+
+      <h1 ng-hide="isAdmin()">{{product.name}}</h1>
+      <p ng-hide="isAdmin()">{{product.company}}</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!--Live edit -->
+      <a ng-show="isAdmin()" class="pull-right editable-links" href="#" e-row="8" editable-textarea="product.description" onaftersave="productService.saveProduct(product)"><i class="fa fa-pencil"></i></a>
+      <div class="editable-data" ng-bind-html="product.description || 'No description'"></div>
+
+      <br/>
+      <hr/>
+    <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product ({{stock}} Available)</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>

@@ -23,11 +23,17 @@
             <div class="panel panel-default">
                 <div class="panel-body form-horizontal payment-form">
                     <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Name</label>
+                        <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="name" ng-model="product.name" name="name">
                         </div>
                     </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Company</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="company" ng-model="product.company" name="name">
+                    </div>
+                  </div>
                     <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
@@ -41,31 +47,18 @@
                             <input type="number" class="form-control" id="amount" ng-model="product.quantity" name="amount">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="status" class="col-sm-3 control-label">Status</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="status" name="status">
-                                <option>Enabled</option>
-                                <option>Disabled</option>
-                            </select>
-                        </div>
-                    </div>
+
 
                     <div class="form-group">
                         <div class="upload-group">
                             <h4 ng-file-select="" ng-file-drop="" ng-model="files" ng-model-rejected="rejFiles"  ng-accept="accept" accept="{{acceptSelect}}" ng-disabled="disabled" ng-capture="capture" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" allow-dir="allowDir" class="drop-box" drop-available="dropAvailable">Select Product Image
                                 <span ng-show="dropAvailable">or Drop</span>
                             </h4>
-
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="status" class="col-sm-3 control-label">Image</label>
-                        <div class="col-sm-9">
                             <p><i>{{files[0].name}}</i></p>
                         </div>
+
                     </div>
+
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
                             <button type="button" class="btn btn-default preview-add-button" ng-click="addProduct(product)">
@@ -95,7 +88,7 @@
                             <tbody>
                                 <tr ng-repeat="product in productService.getProducts()">
                                     <td>{{product.name}}</td>
-                                    <td>{{product.description}}</td>
+                                    <td>{{product.company}}</td>
                                     <td>{{product.quantity}}</td>
                                     <td><img height="50" ng-src="{{product.image}}" alt=""></td>
                                     <td><a href="#" ng-click="deleteProduct(product)" class="trash"><i class="fa fa-times"></i> </a></td>

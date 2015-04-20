@@ -1,17 +1,29 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-
-
-<div class="container">
-	<div class="product" ng-repeat="product in productService.getProducts()">
-        <h4>{{product.name}}</h4>
-                                    <p>{{product.description}}</p>
-                                    <p>{{product.quantity}}</p>
-                                    <div class="image" style="background-image:url('{{product.image}}')}"></div>
-
-                                Reserved: {{productService.getProductReserved(product).length}} Rented: {{productService.getProductRentals(product).length}}
-            <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product</a>
+<div class="container-fluid">
+  <div class="products jumbotron">
+    <div class="container">
+    <h1>Our Devices</h1>
+    <p>You build your ideas, let us take care of the rest.</p>
     </div>
+  </div>
+  <div class="container">
+
+
+    <div class="product" scrollproduct ng-class="{show:showProd}" ng-repeat="product in productService.getProducts()">
+      <a ng-href="/product/{{product._id}}">
+        <div class="image" style="background-image:url('{{product.image}}')}">
+          <div class="product-title">
+            <h2>{{product.name}}</h2>
+            <p>{{product.company}}</p>
+
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
 </div>
+
 
 <!--<form method='post' action='api/products/upload' enctype="multipart/form-data">
         <input type='file' name='fileUploaded'>

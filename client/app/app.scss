@@ -23,6 +23,15 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 body {
   font-size:12px;
 }
+.jumbotron{
+  background-position-y: 50%;
+
+  margin-left: -15px;
+  margin-right: -15px;
+
+  margin-top: -25px;
+}
+
 
 // Component styles are injected through grunt
 // injector
@@ -30,6 +39,7 @@ body {
 @import 'admin/admin.scss';
 @import 'main/main.scss';
 @import 'orders/orders.scss';
+@import 'product/product-page/product-page.scss';
 @import 'product/product.scss';
 @import 'modal/modal.scss';
 // endinjector

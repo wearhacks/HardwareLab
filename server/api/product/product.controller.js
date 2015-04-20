@@ -48,6 +48,9 @@ exports.destroy = function(req, res) {
   Product.findById(req.params.id, function (err, product) {
     if(err) { return handleError(res, err); }
     if(!product) { return res.send(404); }
+    //delete images
+    var filePath = __dirname + "/../../../client" + product.image ;
+    fs.unlinkSync(filePath);
     product.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);

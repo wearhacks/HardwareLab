@@ -36,6 +36,9 @@ angular.module('hardwarelabApp')
       getProducts: function() {
           return products;
       },
+      getProduct: function(product_id) {
+          return   $http.get('/api/products/'+product_id);
+      },
       getActiveRentals: function() {
           return rentals;
       },
@@ -43,10 +46,14 @@ angular.module('hardwarelabApp')
           return reservations;
       },
       getProductRentals : function(product) {
-          return rentals.filter(function(elem){ if(elem.product._id == product._id) return true;});
+          return rentals.filter(function(elem){ console.log(elem); if(elem.product._id == product._id) return true;});
       },
       getProductReserved : function(product) {
           return reservations.filter(function(elem){ if(elem.product._id == product._id) return true;});
+      },
+      getProductStock : function(product) {
+          var filter = function(elem){ if(elem.product._id == product._id) return true;};
+          return (product.quantity - (rentals.filter(filter).length + reservations.filter(filter).length));
       },
       getUserActiveRentals: function(userId) {
         return rentals.filter(function(rental){ if(rental.user._id == userId) return true;});
@@ -56,6 +63,9 @@ angular.module('hardwarelabApp')
       },
       hasUserReservedProduct: function(userId,productId) {
 
+      },
+      saveProduct: function(product) {
+        return $http.put('/api/products/'+product._id,product);
       },
       reserveProduct: function(userId,productId) {
          return $http.post('/api/reservation-requests', {user:userId,product:productId});
@@ -70,10 +80,9 @@ angular.module('hardwarelabApp')
         return $http.post('/api/rentals/return', rental);
       },
       addProduct: function(product) {
-        return $http.post('/api/products', product);
+        return $http.post('/api/products/', product);
       },
       deleteProduct: function(product) {
-        console.log("delete");
         return $http.delete('/api/products/'+product._id);
       }
     };
