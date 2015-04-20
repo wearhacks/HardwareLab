@@ -9,9 +9,8 @@
       <span class="label label-success pull-right">Requested</span>
       You have a reservation for {{reservation.product.name}}.
 
-      You have to pick it up <strong>{{reservationDue(reservation.createdAt)}}</strong>.
-      Expires: {{reservation.expires}}
-      {{reservation.createdAt}}
+      You have to pick it up by <strong>{{dueDate(reservation.expires)}}</strong>.
+
     </li>
   </ul>
   </div>
@@ -19,7 +18,7 @@
 <h1>My Rentals</h1>
   <ul class="list-group">
     <li ng-repeat="rental in productService.getUserActiveRentals(userId)" class="list-group-item">
-      <span class="badge">Due on ...</span>
+      <span class="badge">{{expired(rental)}}</span>
       You rented a  {{rental.product.name}} on {{rental.date | date:medium}}
 
     </li>

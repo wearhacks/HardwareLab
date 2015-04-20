@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/hardwarelab-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };

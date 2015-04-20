@@ -5,10 +5,12 @@ var mongoose = require('mongoose'),
 
 var ProductSchema = new Schema({
   name: String,
+  company: String,
   description: String,
   active: Boolean,
   quantity: { type: Number, min: 0},
-  image: String
+  image: String,
+  banner: String
 
 });
 

@@ -7,7 +7,8 @@ angular.module('hardwarelabApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'angularFileUpload'
+  'angularFileUpload',
+  'xeditable'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

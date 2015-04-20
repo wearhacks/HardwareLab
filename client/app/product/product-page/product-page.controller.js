@@ -1,19 +1,29 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductCtrl', function ($upload, $scope,Auth,Modal,$location,productService) {
-    $scope.isAdmin = Auth.isAdmin();
-    $scope.message = 'Hello';
-
+  .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal) {
 
     $scope.productService = productService;
+    $scope.stock = 0;
+    $scope.isAdmin = Auth.isAdmin;
+    productService.getProduct($stateParams.product)
+      .success(function(data){
 
+        $scope.product = data;
+        $scope.stock = productService.getProductStock(data);
+
+        if(!$scope.product)
+          $location.path("/product");
+
+      });
 
     $scope.modalLogin = Modal.confirm.askToLogin(function(message) { // callback when modal is confirmed
-        $location.path("/login"); //will redirect to login page, make sure your controller is using $location
-      });
+      $location.path("/login"); //will redirect to login page, make sure your controller is using $location
+    });
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
+
+
 
 
     $scope.reserveProduct = function(product) {
@@ -31,9 +41,8 @@ angular.module('hardwarelabApp')
           });
       }
 
-     };
+    };
+
 
 
   });
-
-
