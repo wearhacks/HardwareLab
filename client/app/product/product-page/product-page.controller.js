@@ -4,13 +4,13 @@ angular.module('hardwarelabApp')
   .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal) {
 
     $scope.productService = productService;
-    $scope.stock = 0;
+    $scope.stock = productService.getProductStock;
     $scope.isAdmin = Auth.isAdmin;
     productService.getProduct($stateParams.product)
       .success(function(data){
 
         $scope.product = data;
-        $scope.stock = productService.getProductStock(data);
+
 
         if(!$scope.product)
           $location.path("/product");

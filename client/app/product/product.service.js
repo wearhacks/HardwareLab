@@ -52,6 +52,7 @@ angular.module('hardwarelabApp')
           return reservations.filter(function(elem){ if(elem.product._id == product._id) return true;});
       },
       getProductStock : function(product) {
+          if(!product) return null;
           var filter = function(elem){ if(elem.product._id == product._id) return true;};
           return (product.quantity - (rentals.filter(filter).length + reservations.filter(filter).length));
       },

@@ -26,8 +26,6 @@
   </div>
 
 
-      <h1 ng-hide="isAdmin()">{{product.name}}</h1>
-      <p ng-hide="isAdmin()">{{product.company}}</p>
     </div>
   </div>
   <div class="container">
@@ -38,7 +36,7 @@
 
       <br/>
       <hr/>
-    <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product ({{stock}} Available)</a>
+    <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product ({{stock(product)}} Available)</a>
     </div>
   </div>
 </div>
