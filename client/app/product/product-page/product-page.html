@@ -24,7 +24,14 @@
       </a>
         <h4>{{product.company}}</h4>
   </div>
-
+  <div ng-show="isAdmin()"  class="row">
+    <a class="editable-links" href="#"
+       e-row="8" editable-textarea="product.quantity" blur="ignore"
+       onaftersave="productService.saveProduct(product)">
+      <i class="fa fa-pencil"></i>
+    </a>
+    <h4>Quantity: {{product.quantity}} <h4>
+  </div>
 
     </div>
   </div>
@@ -35,11 +42,29 @@
       <div class="editable-data" ng-bind-html="product.description | markdownFilter  "></div>
 
       <br/>
+    <hr/>
+      <div class="row clearfix">
+        <div id="device-reserve" class="pull-right">
+          <a href="#" class="btn btn-primary btn-sm" ng-click="reserveProduct(product)">Reserve Product <span class="badge">{{stock(product)}} Available</span></a>
+          <a class="typeform-share btn btn-primary btn-sm" href="https://wearhacks.typeform.com/to/zDijpX" data-mode="2" target="_blank">Rate this device!</a>
+        </div>
+        <div id="share-fields" class="pull-left">
 
-    <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product ({{stock(product)}} Available)</a>
+          <div facebook class="facebookShare" data-title='{{social_title}}' data-picture-url='http://hardware-lab.wearhacks.com/{{product.image}}' data-url='{{social_url}}' data-shares='shares'>{{ shares }}</div>
+          <a twitter data-count='horizontal' data-url='{{social_url}}' data-via='notsosleepy' data-size="medium" data-text='{{text}}' ></a>
+          <div class="linkedinShare" linkedin data-url='{{social_url}}' data-title='{{social_title}}' data-summary="{{social_title}}" data-shares='linkedinshares'>{{linkedinshares}}</div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 </div>
 </div>
 </div>
+<footer class="footer">
+  <div class="container">
+    <p>Hardware Lab | WearHacks </p>
+  </div>
+</footer>
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'_';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}})()</script>
