@@ -9,7 +9,8 @@ angular.module('hardwarelabApp', [
   'ui.bootstrap',
   'angularFileUpload',
   'xeditable',
-  'webcam'
+  'webcam',
+  'djds4rce.angular-socialshare'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
