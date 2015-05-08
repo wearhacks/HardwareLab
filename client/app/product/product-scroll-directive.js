@@ -8,16 +8,17 @@ angular.module('hardwarelabApp')
     return function(scope, element, attrs) {
 
       if ($($window).height() >= element.offset().top) {
-        scope.showProd = true;
+
+        element.css("opacity",1);
       }
 
 
       angular.element($window).bind("scroll", function() {
 
         if (this.pageYOffset + $(this).height() >= element.offset().top) {
-          scope.showProd = true;
+          element.css("opacity",1);
         } else {
-          scope.showProd = false;
+          element.css("opacity",0);
         }
         scope.$apply();
       });

@@ -104,32 +104,58 @@
 	</div>
     <div class="row">
         <h1>Reservation Requests</h1>
-        <div class="alert alert-info clearfix" ng-repeat="reservation in productService.getReservations()">
-          <div style="float:left">
-          <p>{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p> </div>
-          <span class="pull-right">
-          <a class="btn btn-success btn-small" href="#" ng-click="addRental(reservation)">Accept <i class="fa fa-check"></i></a>
-          <a class="btn btn-primary btn-small" href="#" ng-click="removeReservation(reservation)">Reject <i class="fa fa-times"></i></a>
-          </span>
+      <div class="list-group">
+        <div href="#" class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations()">
+
+          <p class="pull-left">{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>
+          <div class="pull-right">
+            <!-- Button trigger modal -->
+            <a class="btn btn-success btn-sm" ng-click="openRentalModal(reservation)">Create Rental</a>
+            <a class="btn btn-warning btn-sm" href="#" ng-click="removeReservation(reservation)">Reject <i class="fa fa-times"></i></a>
+          </div>
         </div>
+      </div>
     </div>
     <div class="row">
         <h1>Current Rentals</h1>
         <table class="table">
             <tr>
+                <th>User <input ng-model="search.full_name" type="text"></th>
                 <th>User <input ng-model="search.user.name" type="text"></th>
                 <th>Product <input ng-model="search.product.name" type="text"></th>
+                <th>Product ID <input ng-model="search.product_unique_id" type="text"></th>
                 <th>Date loaned <input ng-model="search.date" type="text"></th>
+                <th> </th>
             </tr>
             <tr ng-repeat="rental in productService.getActiveRentals() | filter:search:strict">
-
-                <td>{{rental.user.name}} </td>
+                <td>{{rental.full_name}}</td>
+                <td>{{rental.user.name}}</td>
                 <td>{{rental.product.name}}</td>
+                <td>{{rental.product_unique_id}}</td>
                 <td>{{rental.date | date:'medium'}} </td>
-                <td>{{rental.returned}} </td>
-                <td><a ng-show="!rental.returned" class="btn btn-success btn-small" href="#" ng-click="returnRental(rental)">Returned <i class="fa fa-check"></i></a></td>
+                <td>
+                  <a class="btn btn-success btn-sm" ng-click="viewRental(rental)">View Rental Info</a>
+                </td>
             </tr>
         </table>
 
     </div>
 </div>
+
+<script type="text/ng-template" id="rentalmodal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">I'm a modal!</h3>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li ng-repeat="item in items">
+        <a ng-click="selected.item = item">{{ item }}</a>
+      </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>

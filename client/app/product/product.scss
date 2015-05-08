@@ -7,13 +7,17 @@
 .product {
   width: 100%;
   float: left;
-  margin-left:-400px;
 
   background: rgba(165, 165, 165, 0.08);
   margin-bottom: 3%;
   border: 1px solid #CCC;
   opacity:0;
 
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -ms-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
   a,a:hover,a:focus {
     text-decoration: none;
   }
@@ -58,13 +62,6 @@
 .product.show {
   margin-left: 0px;
   opacity:1;
-
-  -webkit-transition: margin-left 0.5s ease-in-out,opacity 1s ease-in-out;
-  -moz-transition: margin-left 0.5s ease-in-out,opacity 1s ease-in-out;
-  -ms-transition: margin-left 0.5s ease-in-out,opacity 1s ease-in-out;
-  -o-transition: margin-left 0.5s ease-in-out,opacity 1s ease-in-out;
-  transition: margin-left 0.5s ease-in-out,opacity 1s ease-in-out;
-
 }
 .products.jumbotron {
   background-image: url("/assets/images/header.jpg");
