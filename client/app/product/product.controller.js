@@ -3,7 +3,6 @@
 angular.module('hardwarelabApp')
   .controller('ProductCtrl', function ($upload, $scope,Auth,Modal,$location,productService) {
     $scope.isAdmin = Auth.isAdmin();
-    $scope.message = 'Hello';
 
 
     $scope.productService = productService;

@@ -3,12 +3,12 @@
 angular.module('hardwarelabApp')
   .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal, $FB) {
 
-    $FB.init('386469651480295');
+    $FB.init('1627731604128082');
     $scope.productService = productService;
     $scope.stock = productService.getProductStock;
     $scope.isAdmin = Auth.isAdmin;
 
-    $scope.social_url = $location.path()
+    $scope.social_url = 'http://hardwarelab.wearhacks.com'+$location.path()
     productService.getProduct($stateParams.product)
       .success(function(data){
 

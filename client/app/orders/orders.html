@@ -3,10 +3,10 @@
 <div class="container">
   <div class="row">
   <h1>My Reservation Requests</h1>
-
     <h4 ng-show="productService.getUserReservations(userId).length == 0">
       No Reservations!
     </h4>
+
   <ul class="list-group">
     <li ng-repeat="reservation in productService.getUserReservations(userId)" class="list-group-item">
       <span class="label label-success pull-right">Requested</span>
@@ -19,11 +19,11 @@
   </div>
   <div class="row">
 <h1>My Rentals</h1>
+
     <h4 ng-show="productService.getUserActiveRentals(userId).length == 0">
       No rentals!
     </h4>
   <ul class="list-group">
-
     <li ng-repeat="rental in productService.getUserActiveRentals(userId)" class="list-group-item">
       <span class="badge">{{expired(rental)}}</span>
       You rented a  {{rental.product.name}} on {{rental.date | date:medium}}

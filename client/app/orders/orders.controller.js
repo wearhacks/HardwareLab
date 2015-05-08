@@ -20,5 +20,6 @@ angular.module('hardwarelabApp')
         return 'Please return your rental. This was due '+ $scope.dueDate(rental.returnDate);
       else
         return 'Please return this by '+ $scope.dueDate(rental.returnDate);
+
     }
   });

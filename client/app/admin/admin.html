@@ -10,7 +10,6 @@
         <a ng-click="delete(user.name,user)" class="trash"><i class="fa fa-times pull-right"></i></a>
     </li>
   </ul>
-
   <div class="row">
     <div class="col-sm-12">
       <legend>Add Product</legend>
@@ -18,6 +17,7 @@
   </div>
 
 	<div class="row">
+
 
         <!-- panel preview -->
         <div ng-show="isAdmin" class="col-sm-5">
@@ -63,8 +63,10 @@
 
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
+
                             <button type="button" class="btn btn-default btn-sm" ng-click="addProduct(product)">
                                 <span class="glyphicon glyphicon-plus"></span> Add Device
+
                             </button>
                         </div>
                     </div>
@@ -105,6 +107,7 @@
         </div>
 	</div>
     <div class="row">
+
       <div class="col-sm-12">
         <legend>Reservation Requests</legend>
       </div>
@@ -115,7 +118,7 @@
       <div class="list-group">
        <h4 ng-show="productService.getReservations().length == 0">No reservations! :(</h4>
         <div class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations()">
-f
+
           <p class="pull-left">{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>
           <div class="pull-right">
             <!-- Button trigger modal -->
@@ -124,6 +127,7 @@ f
           </div>
         </div>
       </div>
+
       </div>
     </div>
     <div class="row">
@@ -161,3 +165,4 @@ f
       <p>Hardware Lab | WearHacks </p>
     </div>
   </footer>
+
