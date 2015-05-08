@@ -9,9 +9,14 @@ var returnDate = function() {
 var RentalSchema = new Schema({
 	user: {type: Schema.Types.ObjectId, ref: 'User'},
 	product: {type: Schema.Types.ObjectId, ref: 'Product'},
+  product_unique_id: {type:String},
+  full_name: {type:String},
+  phone_number: {type:String},
+  extra_info:{type:String},
   returned: {type: Boolean, default: false},
 	date: { type: Date, default: Date.now },
-  returnDate: {type:Date, default:returnDate}
+  returnDate: {type:Date, default:returnDate},
+  imageData:{type:String}
 });
 
 module.exports = mongoose.model('Rental', RentalSchema);

@@ -1,8 +1,14 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('AdminCtrl', function ($scope, $http,$location, Auth,Modal, User,socket, $upload,productService) {
+  .controller('AdminCtrl', function ($scope, $http,$location,$modal, Auth,Modal, User,socket, $upload,productService) {
 
+    $scope.myChannel = {
+      // the fields below are all optional
+      videoHeight: 800,
+      videoWidth: 600,
+      video: null // Will reference the video element on success
+    };
     // Use the User $resource to fetch all users
     $scope.users = User.query();
     $scope.productService =  productService;
@@ -28,19 +34,43 @@ angular.module('hardwarelabApp')
     /**
       Rental requests
     **/
-    $scope.addRental = function(reservation) {
-      productService.addRental(reservation)
-        .success(function(message) {
-          $scope.modalSuccess("Created a new rental successfully");
-        })
-        .error(function(message) {
-          $scope.modalError(message.error);
-        });
+    $scope.openRentalModal = function (reservation) {
+
+      var modalInstance = $modal.open({
+        templateUrl: 'app/admin/rental-modal.html',
+        controller: 'CreateRentalCtrl',
+        size: 'lg',
+        resolve: {
+          reservation: function () {
+            return reservation;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+      }, function () {
+        console.log('Modal dismissed at: ' + new Date());
+      });
     };
+
 
     $scope.removeReservation = function(reservation) {
       productService.deleteReservation(reservation);
     };
+
+    $scope.viewRental = function(rental) {
+      var modalInstance = $modal.open({
+        templateUrl: 'app/admin/view-rental-modal.html',
+        controller: 'ViewRentalCtrl',
+        size: 'lg',
+        resolve: {
+          rental: function () {
+            return rental;
+          }
+        }
+      });
+    }
 
     $scope.returnRental = function(rental) {
       productService.returnRental(rental)
@@ -90,3 +120,5 @@ angular.module('hardwarelabApp')
     };
 
   });
+
+

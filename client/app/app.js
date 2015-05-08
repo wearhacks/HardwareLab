@@ -8,7 +8,8 @@ angular.module('hardwarelabApp', [
   'ui.router',
   'ui.bootstrap',
   'angularFileUpload',
-  'xeditable'
+  'xeditable',
+  'webcam'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

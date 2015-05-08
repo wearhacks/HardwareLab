@@ -32,12 +32,13 @@
     <div class="row">
       <!--Live edit -->
       <a ng-show="isAdmin()" class="pull-right editable-links" href="#" e-row="8" editable-textarea="product.description" onaftersave="productService.saveProduct(product)"><i class="fa fa-pencil"></i></a>
-      <div class="editable-data" ng-bind-html="product.description || 'No description'"></div>
+      <div class="editable-data" ng-bind-html="product.description | markdownFilter  "></div>
 
       <br/>
-      <hr/>
+
     <a href="#" class="btn btn-primary" ng-click="reserveProduct(product)">Reserve Product ({{stock(product)}} Available)</a>
     </div>
+
   </div>
 </div>
 </div>

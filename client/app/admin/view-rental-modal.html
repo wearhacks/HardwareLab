@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h3 class="modal-title">Rental Info</h3>
+</div>
+<div class="modal-body">
+  <h4>Is this correct?</h4>
+  <div class="container-fluid well">
+
+    <div class="row col-sm-12"><p><strong>Renter name:</strong> {{rental.full_name}}</p></div>
+    <div class="row col-sm-12"><p><strong>Phone:</strong> {{rental.phone_number}}</p></div>
+    <div class="row col-sm-12"><p><strong>Product Being Returned:</strong>  {{rental.product.name}} ID: {{rental.product_unique_id}}</p>
+
+    </div>
+    <div><p><strong>Extra Info:</strong>  {{rental.extra_info}}</p></div>
+    <div class="row col-sm-12"><p><strong>Picture taken on rental:</strong></p>
+      <img ng-src="{{rental.imageData}}"/>
+    </div>
+
+
+  </div>
+</div>
+<div class="modal-footer">
+
+  <a class="btn btn-success btn-sm" href="#" ng-click="returnRental(rental)">Return Product<i class="fa fa-check"></i></a>
+  <button class="btn btn-sm" ng-click="cancel()">Cancel</button>
+</div>

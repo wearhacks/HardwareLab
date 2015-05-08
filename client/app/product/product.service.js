@@ -72,7 +72,12 @@ angular.module('hardwarelabApp')
          return $http.post('/api/reservation-requests', {user:userId,product:productId});
       },
       addRental: function(reservation) {
-        return $http.post('/api/rentals', {reservation:reservation._id,user:reservation.user._id, product:reservation.product._id});
+        return $http.post('/api/rentals', {
+          reservation:reservation._id,user:reservation.user._id, product:reservation.product._id,
+          full_name: reservation.full_name, phone_number: reservation.phone_number, imageData: reservation.imageData,
+          extra_info: reservation.extra_info, product_unique_id: reservation.product_unique_id
+
+        });
       },
       deleteReservation: function(reservation) {
         return $http.delete('/api/reservation-requests/' + reservation._id);
