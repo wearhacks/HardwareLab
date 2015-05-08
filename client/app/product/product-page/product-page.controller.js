@@ -1,17 +1,20 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal) {
+  .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal, $FB) {
 
+    $FB.init('386469651480295');
     $scope.productService = productService;
     $scope.stock = productService.getProductStock;
     $scope.isAdmin = Auth.isAdmin;
+
+    $scope.social_url = $location.path()
     productService.getProduct($stateParams.product)
       .success(function(data){
 
         $scope.product = data;
 
-
+        $scope.social_title = "Hacking with "+ $scope.product.name + " on Wearhacks!"
         if(!$scope.product)
           $location.path("/product");
 
@@ -22,7 +25,6 @@ angular.module('hardwarelabApp')
     });
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
-
 
 
 
