@@ -4,8 +4,10 @@ var _ = require('lodash');
 var fs = require('fs-extra');
 var Product = require('./product.model');
 
+
 // Get list of products
 exports.index = function(req, res) {
+
   Product.find(function (err, products) {
     if(err) { return handleError(res, err); }
     return res.json(200, products);
@@ -45,12 +47,19 @@ exports.update = function(req, res) {
 
 // Deletes a product from the DB.
 exports.destroy = function(req, res) {
+  var app_path = require('../../app').get('appPath');
   Product.findById(req.params.id, function (err, product) {
     if(err) { return handleError(res, err); }
     if(!product) { return res.send(404); }
     //delete images
-    var filePath = __dirname + "/../../../client" + product.image ;
-    fs.unlinkSync(filePath);
+    console.log(module.exports);
+    var filePath = app_path + product.image ;
+    fs.exists(filePath, function(exists){ 
+      if(exists)
+        fs.unlinkSync(filePath); //delete file if it exists
+      else
+        console.log("image file does not exist locally");
+    });
     product.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
@@ -59,7 +68,7 @@ exports.destroy = function(req, res) {
 };
 
 exports.upload = function (req, res) {
-
+  var app_path = require('../../app').get('appPath');
   var fstream;
   req.pipe(req.busboy);
 
@@ -72,7 +81,7 @@ exports.upload = function (req, res) {
     console.log("Uploading: " + filename);
 
     //Path where image will be uploaded
-    fstream = fs.createWriteStream(__dirname + '/../../../client/assets/product-images/'+receivedProduct+"-"+ filename);
+    fstream = fs.createWriteStream(app_path+ '/assets/product-images/'+receivedProduct + "-" + filename);
     file.pipe(fstream);
     fstream.on('close', function () {
       console.log("Upload Finished of " + filename);

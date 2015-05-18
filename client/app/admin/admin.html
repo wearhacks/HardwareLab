@@ -4,11 +4,11 @@
 	<div class="row">
   <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="user in users">
+    <!--<li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
         <span class="text-muted">{{user.email}}</span>
         <a ng-click="delete(user.name,user)" class="trash"><i class="fa fa-times pull-right"></i></a>
-    </li>
+    </li>-->
   </ul>
   <div class="row">
     <div class="col-sm-12">
@@ -117,6 +117,7 @@
 
       <div class="list-group">
        <h4 ng-show="productService.getReservations().length == 0">No reservations! :(</h4>
+        
         <div class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations()">
 
           <p class="pull-left">{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>

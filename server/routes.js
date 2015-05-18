@@ -23,6 +23,14 @@ module.exports = function(app) {
    .get(errors[404]);
 
 
+  app.route('/uploads/:fileName')
+    .get(function (req, res, next) {
+      console.log('hello');
+      var filename = req.params.fileName;
+      res.sendfile('/uploads/'+ filename);
+  });
+
+
   app.route('/upload')
     .post(function (req, res, next) {
 
