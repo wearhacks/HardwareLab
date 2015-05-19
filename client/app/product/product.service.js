@@ -14,7 +14,6 @@ angular.module('hardwarelabApp')
         reservations = data;
         $http.get('/api/rentals/current').success(function(data) {
           rentals = data;
-          console.log("RELOADING DATA HERE");
           socket.syncUpdates('product', products);
           socket.syncUpdates('reservation-request', reservations);
           socket.syncUpdates('rental', rentals);
@@ -46,13 +45,14 @@ angular.module('hardwarelabApp')
           return reservations;
       },
       getProductRentals : function(product) {
-          return rentals.filter(function(elem){ console.log(elem); if(elem.product._id == product._id) return true;});
+          return rentals.filter(function(elem){ if(elem.product._id == product._id) return true;});
       },
       getProductReserved : function(product) {
-          return reservations.filter(function(elem){ if(elem.product._id == product._id) return true;});
+          return reservations.filter(function(elem){ if(elem.product && elem.product._id == product._id) return true;});
       },
       getProductStock : function(product) {
-          if(!product) return null;
+          if(!product || !rentals || !reservations) return null;
+
           var filter = function(elem){ if(elem.product._id == product._id) return true;};
           return (product.quantity - (rentals.filter(filter).length + reservations.filter(filter).length));
       },

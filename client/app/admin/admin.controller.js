@@ -1,14 +1,10 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('AdminCtrl', function ($scope, $http,$location,$modal, Auth,Modal, User,socket, $upload,productService) {
+  .controller('AdminCtrl', function ($scope, $http,$location,$modal, Auth,Modal, User,socket, Upload,productService, imgur, $window) {
+    imgur.setAPIKey('Client-ID b5e46e9ab73112d');
 
-    $scope.myChannel = {
-      // the fields below are all optional
-      videoHeight: 800,
-      videoWidth: 600,
-      video: null // Will reference the video element on success
-    };
+
     // Use the User $resource to fetch all users
     $scope.users = User.query();
     $scope.productService =  productService;
@@ -21,7 +17,7 @@ angular.module('hardwarelabApp')
         }
       });
     });
-
+    $scope.isUploading = false;
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
 
@@ -89,17 +85,22 @@ angular.module('hardwarelabApp')
       if($scope.product === '') {
         return;
       }
-      $scope.product.image = "/assets/product-images/"+$scope.product.name+"-"+$scope.files[0].name;
-      $scope.upload($scope.files);
-      productService.addProduct(product);
-      $scope.product = '';
+      $scope.isUploading = true;
+      imgur.upload($scope.files[0]).then(function then(model) {
+        $scope.isUploading = false;
+          $scope.product.image = model.link;
+          productService.addProduct(product);
+          $scope.product = '';
+          $scope.files = null;
+      });
+
     };
     $scope.deleteProduct = function(product) {
-      console.log(product);
       productService.deleteProduct(product);
     };
 
-    $scope.upload = function (files) {
+
+  /* $scope.upload = function (files) {
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -117,7 +118,7 @@ angular.module('hardwarelabApp')
                 });
             }
         }
-    };
+    };*/
 
   });
 

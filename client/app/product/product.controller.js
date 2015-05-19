@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductCtrl', function ($upload, $scope,Auth,Modal,$location,productService) {
+  .controller('ProductCtrl', function ($scope,Auth,Modal,$location,productService) {
     $scope.isAdmin = Auth.isAdmin();
 
 

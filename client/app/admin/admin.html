@@ -2,7 +2,6 @@
 
 <div class="container">
 	<div class="row">
-  <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
   <ul class="list-group">
     <!--<li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
@@ -20,14 +19,16 @@
 
 
         <!-- panel preview -->
-        <div ng-show="isAdmin" class="col-sm-5">
+        <div ng-show="isAdmin" class="panel col-sm-12">
             <h4>Product description:</h4>
-            <div class="panel panel-default">
-                <div class="panel-body form-horizontal payment-form">
+            <div class="panel-body panel-default">
+              <form ng-submit="addProduct(product)">
+                <fieldset ng-disabled="isUploading">
+                <div class="panel-body form-horizontal payment-form col-sm-6">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="name" ng-model="product.name" name="name">
+                            <input type="text" class="form-control" id="name" ng-model="product.name" name="name" required>
                         </div>
                     </div>
                   <div class="form-group">
@@ -46,66 +47,95 @@
                     <div class="form-group">
                         <label for="amount" class="col-sm-3 control-label">Quantity</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control" id="amount" ng-model="product.quantity" name="amount">
+                            <input type="number" class="form-control" id="amount" ng-model="product.quantity" name="amount" required>
                         </div>
                     </div>
 
 
-                    <div class="form-group">
-                        <div class="upload-group">
-                            <h4 ng-file-select="" ng-file-drop="" ng-model="files" ng-model-rejected="rejFiles"  ng-accept="accept" accept="{{acceptSelect}}" ng-disabled="disabled" ng-capture="capture" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" allow-dir="allowDir" class="drop-box" drop-available="dropAvailable">Select Product Image
-                                <span ng-show="dropAvailable">or Drop</span>
-                            </h4>
-                            <p><i>{{files[0].name}}</i></p>
-                        </div>
 
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-12 text-right">
 
-                            <button type="button" class="btn btn-default btn-sm" ng-click="addProduct(product)">
-                                <span class="glyphicon glyphicon-plus"></span> Add Device
-
-                            </button>
-                        </div>
-                    </div>
 
                 </div>
+                  <div class="panel-body form-group col-sm-6">
+
+                    <div ng-disabled="isUploading" ng-show="files[0]== null" ng-class="{disabled:isUploading}" class="upload-group col-sm-offset-3 col-sm-9" ngf-drop ngf-select ng-model="files" ng-model-rejected="rejFiles"
+                         ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+                         ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'image/*'"
+                         ngf-drop-available="dropAvailable">
+                      <div><i class="fa fa-upload"></i></div>
+                      <div ng-hide="dropAvailable">File Drop not available</div>
+                      <div ng-show="dropAvailable">Drop Images</div>
+                      <div>Click to select</div>
+
+                        </div>
+                        <div class="preview col-sm-offset-3 col-sm-9" ng-show="files[0] != null">
+                          <a href="#" ng-click="files=null" ng-show="!isUploading"><i class="fa fa-times"></i></a>
+                          <div class="overlay col-sm-12">
+                            <img class="col-sm-12" ngf-src="files[0]" ng-show="files[0].type.indexOf('image') > -1" ngf-accept="'image/*'">
+                          </div>
+                        </div>
+
+                  </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-12 text-right">
+
+              <button type="submit" class="btn btn-default btn-sm" ng-click="">
+                <span class="glyphicon glyphicon-plus"></span> Add Device
+
+              </button>
+              <div ng-show="isUploading" class="progress progress-striped active">
+                <div class="progress-bar" style="width: 100%">
+                  <p>Adding Device...</p> <br/>
+                </div>
+
+              </div>
             </div>
+
+          </div>
+          </fieldset>
+          </form>
         </div> <!-- / panel preview -->
-        <div class="col-sm-7">
-            <h4>Current Products:</h4>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table preview-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Status</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="product in productService.getProducts()">
-                                    <td>{{product.name}}</td>
-                                    <td>{{product.company}}</td>
-                                    <td>{{product.quantity}}</td>
-                                    <td><img height="50" ng-src="{{product.image}}" alt=""></td>
-                                    <td><a href="#" ng-click="deleteProduct(product)" class="trash"><i class="fa fa-times"></i> </a></td>
-                                </tr>
 
-                            </tbody> <!-- preview content goes here-->
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
 	</div>
+    <div class="row">
+      <div class="col-sm-12">
+        <legend>Current Products</legend>
+      </div>
+      <div class="col-sm-12">
+        <h4>Current Products:</h4>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="table-responsive">
+              <table class="table preview-table">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                  <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="product in productService.getProducts()">
+                  <td>{{product.name}}</td>
+                  <td>{{product.company}}</td>
+                  <td>{{product.quantity}}</td>
+                  <td><img height="50" ng-src="{{product.image}}" alt=""></td>
+                  <td><a href="#" ng-click="deleteProduct(product)" class="trash"><i class="fa fa-times"></i> </a></td>
+                </tr>
+
+                </tbody> <!-- preview content goes here-->
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <div class="row">
 
       <div class="col-sm-12">
@@ -117,7 +147,7 @@
 
       <div class="list-group">
        <h4 ng-show="productService.getReservations().length == 0">No reservations! :(</h4>
-        
+
         <div class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations()">
 
           <p class="pull-left">{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>

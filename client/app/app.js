@@ -7,10 +7,11 @@ angular.module('hardwarelabApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'angularFileUpload',
+  'ngFileUpload',
   'xeditable',
   'webcam',
-  'djds4rce.angular-socialshare'
+  'djds4rce.angular-socialshare',
+  'ngImgur'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -25,7 +26,7 @@ angular.module('hardwarelabApp', [
       // Add authorization token to headers
       request: function (config) {
         config.headers = config.headers || {};
-        if ($cookieStore.get('token')) {
+        if ($cookieStore.get('token') && config.url.indexOf('api.imgur.com')===-1) {
           config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
         }
         return config;

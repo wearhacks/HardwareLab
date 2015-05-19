@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var fs = require('fs-extra');
 var Product = require('./product.model');
-
+//var imgur = require('imgur-node-api');
 
 // Get list of products
 exports.index = function(req, res) {
@@ -54,7 +54,7 @@ exports.destroy = function(req, res) {
     //delete images
     console.log(module.exports);
     var filePath = app_path + product.image ;
-    fs.exists(filePath, function(exists){ 
+    fs.exists(filePath, function(exists){
       if(exists)
         fs.unlinkSync(filePath); //delete file if it exists
       else
@@ -68,6 +68,7 @@ exports.destroy = function(req, res) {
 };
 
 exports.upload = function (req, res) {
+  /*
   var app_path = require('../../app').get('appPath');
   var fstream;
   req.pipe(req.busboy);
@@ -87,7 +88,7 @@ exports.upload = function (req, res) {
       console.log("Upload Finished of " + filename);
       res.redirect('back');           //where to go next
     });
-  });
+  });*/
 };
 
 function handleError(res, err) {

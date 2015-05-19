@@ -1,16 +1,54 @@
 .upload-group {
-  width: 79%;
-  margin: auto;
   border: 3px dashed rgba(0,0,0,0.4);
-  background: rgba(255, 255, 255, 0.16);
-
+  background: #EEE;
+  text-align:center;
+  cursor: pointer;
+  color:#919191;
+  i{
+    font-size:500%;
+    color:#919191;
+    text-shadow: 1px 1px 1px #FFF;
+  }
   h4 {
     text-align:center;
     line-height:30px;
   }
 }
+.upload-group.disabled {
+    background: #EEE;
+    color: #8F8F8F;
+  cursor:not-allowed;
+  }
+.upload-group.dragover {
+  background: white;
+  color: #8F8F8F;
+  border: 2px solid #02325f;
+}
+.upload-group:focus {
+  border-color: red;
+}
 .rental-button {
   position: absolute;
   top: 30%;
   right: 0;
+}
+.preview {
+  border: 1px solid #EFEFEF;
+  background: #EFEFEF;
+  z-index: 2;
+  a {
+    background: rgba(0, 0, 0, 0.48);
+    color: white;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    right:0;
+    font-size: 123%;
+    position:absolute;
+    z-index: 5;
+  }
+  a:hover {
+    background: rgba(0, 0, 0, 0.89);
+  }
+
 }
