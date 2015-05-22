@@ -12,6 +12,8 @@ var expireDate = function() {
 
 var ReservationRequestSchema = new Schema({
   user: {type: String, ref: 'User'},
+  full_name: {type:String},
+  phone_number: {type:String},
   product: {type: String, ref: 'Product'},
   createdAt: {type:Date, default:Date.now },
   expires: {type:Date, default:expireDate}

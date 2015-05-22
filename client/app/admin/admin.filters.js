@@ -18,3 +18,22 @@ angular.module('hardwarelabApp')
 
     };
   });
+angular.module('hardwarelabApp')
+  .filter('reservationFilter', function () {
+    var compare = function(a,b) {
+      if(typeof a === "undefined" || typeof b === "undefined")return true;
+      return a.toUpperCase().indexOf(b.toUpperCase())> -1 ;
+    };
+    return function (reservations, input) {
+      console.log(reservations);
+      console.log(input);
+        var filtered = reservations.filter(function(d) {
+
+        return (compare(d.full_name,input) ||
+        compare(d.user.name,input) ||
+        compare(d.product.name,input))
+      });
+      return filtered;
+
+    };
+  });

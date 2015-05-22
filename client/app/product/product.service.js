@@ -68,8 +68,13 @@ angular.module('hardwarelabApp')
       saveProduct: function(product) {
         return $http.put('/api/products/'+product._id,product);
       },
-      reserveProduct: function(userId,productId) {
-         return $http.post('/api/reservation-requests', {user:userId,product:productId});
+      reservable: function(userId,productId) {
+        return $http.post('/api/reservation-requests/reservable',
+          {user:userId,product:productId});
+      },
+      reserveProduct: function(userId,productId,reservation) {
+         return $http.post('/api/reservation-requests',
+           {user:userId,product:productId,full_name:reservation.full_name, phone_number:reservation.phone_number});
       },
       addRental: function(reservation) {
         return $http.post('/api/rentals', {

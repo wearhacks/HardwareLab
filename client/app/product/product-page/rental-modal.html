@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h3 class="modal-title">Rental Info</h3>
+</div>
+<form>
+<div class="modal-body">
+  <div class="container-fluid">
+      <div class="form-group clearfix">
+        <label class="col-xs-2">Renter's Name</label>
+        <div class="col-xs-10">
+          <input type="text" class="form-control" ng-model="reservation.full_name" required>
+        </div>
+      </div>
+      <div class="form-group clearfix">
+        <label class="col-xs-2">Phone Number</label>
+        <div class="col-xs-10">
+          <input type="tel" class="form-control"  ng-model="reservation.phone_number" required>
+        </div>
+      </div>
+      <h4>Please note you'll have to provide an ID with the above name.</h4>
+      <div class="well">
+        <p>
+          1. You are responsible for the device(s) that you have reserved and collected.  We expect that you will return them in good working condition.
+        </p><p>
+          2. You are to return the same numbered device(s) that you reserved and collected.  So, if you reserved device #9, you must return device #9 and cannot substitute #5.
+      </p><p>
+          3. Devices are to be returned no later than 7:00 pm on the last evening of the hackathon.
+      </p><p>
+          4. If you fail to return the numbered device(s) you reserved and collected or if the device is not returned in good working order, then you will be held responsible and will be charged for the device(s) at market price.
+        </p>
+
+      </div>
+
+  </div>
+</div>
+<div class="modal-footer">
+
+  <button type="submit" class="btn btn-success btn-sm" href="#" ng-click="createReservation(reservation)">Create Reservation<i class="fa fa-check"></i></button>
+  <button class="btn btn-sm" ng-click="cancel()">Cancel</button>
+</div>
+</form>

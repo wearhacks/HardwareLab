@@ -21,23 +21,6 @@
         <input type="text" class="form-control" ng-model="reservation.product_unique_id">
       </div>
     </div>
-    <div class="form-group clearfix">
-      <label class="col-xs-2">Extra Info:</label>
-      <div class="col-xs-10">
-        <textarea class="form-control" rows="5" ng-model="reservation.extra_info"></textarea>
-      </div>
-    </div>
-
-    <div class="form-group clearfix">
-      <label class="col-xs-2">Picture</label>
-      <div class="row col-xs-10">
-        <webcam
-          on-streaming="onSuccess()"
-          channel="myChannel">
-        </webcam>
-        <button class="btn btn-xs" ng-click="makeSnapshot(reservation)">Take a shot</button>
-      </div>
-    </div>
   </form><hr/>
   <div class="row col-xs-12">
   <h4>Is this correct?</h4>
@@ -45,9 +28,7 @@
 
     <div class="row"><p><strong>Renter name:</strong> {{reservation.full_name}}</p></div>
     <div class="row"><p><strong>Phone:</strong> {{reservation.phone_number}}</p></div>
-    <div class="row"><h5>Picture</h5>
-      <canvas id="snapshot" class="well"></canvas>
-    </div>
+
     <div class="row"><h5>Product Being Rent</h5>
       <p><strong>{{reservation.product.name}} {{reservation.product_unique_id}}</strong></p>
     </div>

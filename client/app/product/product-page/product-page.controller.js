@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal, $FB) {
+  .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal, $modal, $FB) {
 
     $FB.init('1627731604128082');
     $scope.productService = productService;
@@ -29,22 +29,59 @@ angular.module('hardwarelabApp')
 
 
     $scope.reserveProduct = function(product) {
-      if($.isEmptyObject(Auth.getCurrentUser())) {
-        $scope.modalLogin("reserve");
-      }
-      else {
-        $scope.productService.reserveProduct(Auth.getCurrentUser()._id,product._id)
+        productService.reservable(Auth.getCurrentUser()._id,product._id)
           .error(function(message) {
             $scope.modalError(message.error);
-            console.log(message);
           })
-          .success(function(message){
-            $scope.modalSuccess("You successfully reserved the item.");
+          .success(function() {
+            var modalInstance = $modal.open({
+              templateUrl: 'app/product/product-page/rental-modal.html',
+              controller: 'CreateResCtrl',
+              size: 'lg',
+              resolve: {
+                product: function () {
+                  return product;
+                }
+              }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+              $scope.selected = selectedItem;
+            }, function () {
+              console.log('Modal dismissed at: ' + new Date());
+            });
           });
-      }
 
+
+
+      };
+
+
+
+  });
+
+
+angular.module('hardwarelabApp')
+  .controller('CreateResCtrl', function ($scope, $modalInstance, Modal, product, Auth, productService) {
+
+    'use strict';
+
+    $scope.modalError = Modal.confirm.errorMessage();
+    $scope.modalSuccess = Modal.confirm.successMessage();
+
+    $scope.createReservation = function(reservation) {
+      productService.reserveProduct(Auth.getCurrentUser()._id,product._id,reservation)
+        .error(function(message) {
+          $scope.modalError(message.error);
+        })
+        .success(function(message){
+          $scope.modalSuccess("You successfully reserved the item.");
+          $modalInstance.close();
+        });
+    }
+
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
     };
-
-
-
   });

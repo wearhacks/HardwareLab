@@ -33,16 +33,35 @@ exports.show = function(req, res) {
       return res.json(reservation_request);
     });
 };
-
+// Can be reserved?
+exports.reservable = function(req,res) {
+  async.waterfall([
+    function(next) {
+      ReservationRequest.count({user:req.body.user,product:req.body.product},next);
+    },
+    function(reservCount,next) {
+      if(reservCount > 0)
+        return res.json(400,{error: "You are already on the waitlist!"});
+      else
+        Rental.count({user:req.body.user,product:req.body.product,returned:false},next);
+    },
+    function(rentalCount,next) {
+      if(rentalCount > 0)
+        return res.json(400,{error: "You already rented this item!"});
+      else
+        return res.json(201, {});
+    }]);
+}
 // Creates a new reservation_request in the DB.
 exports.create = function(req, res) {
   if(!req.body.user) { return res.send(400); }
 
   async.waterfall([
     function(next) {
-      ReservationRequest.count(req.body,next);
+      ReservationRequest.count({user:req.body.user,product:req.body.product},next);
     },
     function(reservCount,next) {
+      console.log(reservCount);
       if(reservCount > 0)
         return res.json(400,{error: "You are already on the waitlist!"});
       else
@@ -97,7 +116,11 @@ exports.update = function(req, res) {
 // Deletes a reservation_request from the DB.
 exports.destroy = function(req, res) {
   ReservationRequest.findById(req.params.id, function (err, reservation_request) {
+    var userId = req.user._id.toString();
 
+    if(reservation_request.user !== userId || req.user.role != 'admin') {
+      return res.send(404);
+    }
     if(err) { return handleError(res, err); }
     if(!reservation_request) { return res.send(404); }
     reservation_request.remove(function(err) {

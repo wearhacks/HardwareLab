@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductCtrl', function ($scope,Auth,Modal,$location,productService) {
+  .controller('ProductCtrl', function ($scope,Auth,Modal,$modal, $location,productService) {
     $scope.isAdmin = Auth.isAdmin();
 
 
@@ -15,7 +15,10 @@ angular.module('hardwarelabApp')
     $scope.modalSuccess = Modal.confirm.successMessage();
 
 
-    $scope.reserveProduct = function(product) {
+   // $scope.reserveProduct = function(product) {
+
+
+     /*
       if($.isEmptyObject(Auth.getCurrentUser())) {
         $scope.modalLogin("reserve");
       }
@@ -28,9 +31,9 @@ angular.module('hardwarelabApp')
           .success(function(message){
             $scope.modalSuccess("You successfully reserved the item.");
           });
-      }
+      }*/
 
-     };
+     //};
 
 
   });

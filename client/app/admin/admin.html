@@ -147,8 +147,10 @@
 
       <div class="list-group">
        <h4 ng-show="productService.getReservations().length == 0">No reservations! :(</h4>
-
-        <div class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations()">
+        <div class="search-prods">
+          <input ng-model="search.reservation" placeholder="Search Reservation" type="text">
+        </div>
+        <div class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations() | reservationFilter:search.reservation">
 
           <p class="pull-left">{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>
           <div class="pull-right">

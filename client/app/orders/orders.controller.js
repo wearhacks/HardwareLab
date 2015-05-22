@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('OrdersCtrl', function  ($upload, $scope,Auth,Modal,$location,productService,moment) {
+  .controller('OrdersCtrl', function  ($scope,Auth,Modal,$location,productService,moment) {
     if(!Auth.isLoggedIn())
       $location.path("/login");
 
