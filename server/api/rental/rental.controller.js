@@ -80,15 +80,13 @@ exports.show = function(req, res) {
 
 exports.create = function(req, res) {
   //@nadbm Using Async to avoid callback hell
-  console.log(req.body);
+
   async.waterfall([
     function(next) {
       Rental.where({ product : req.body.product,returned : false }).count(next);
     },
     function(rentalCount,next) {
-
       Product.findById(req.body.product).exec(function(err,product){next(err,rentalCount,product)});
-
     },
     function(rentalCount, product,next) {
       if(rentalCount >= product.quantity)

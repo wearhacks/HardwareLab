@@ -10,7 +10,6 @@ angular.module('hardwarelabApp')
     $scope.message = 'Hello';
     $scope.a = moment();
     $scope.date = new moment();
-    console.log($scope.date);
 
     $scope.dueDate = function(reserveTime) {
       return moment(reserveTime).calendar().toLowerCase();

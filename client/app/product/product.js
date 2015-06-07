@@ -9,3 +9,11 @@ angular.module('hardwarelabApp')
         controller: 'ProductCtrl'
       });
   });
+
+angular.module('hardwarelabApp')
+  .filter('smallerImgFilter', function () {
+    return function (image) {
+      return image.replace('.jpg','l.jpg');;
+
+    };
+  });

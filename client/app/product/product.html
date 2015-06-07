@@ -11,7 +11,7 @@
 
     <div class="product" scrollproduct ng-class="{show:showProd}" ng-repeat="product in productService.getProducts()">
       <a ng-href="/product/{{product._id}}">
-        <div class="image" style="background-image:url('{{product.image}}')}">
+        <div class="image" style="background-image:url('{{product.image | smallerImgFilter}}')}">
           <div class="product-title">
             <h2>{{product.name}}</h2>
             <p>{{product.company}}</p>

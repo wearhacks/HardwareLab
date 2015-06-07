@@ -152,7 +152,7 @@
         </div>
         <div class="list-group-item clearfix" ng-repeat="reservation in productService.getReservations() | reservationFilter:search.reservation">
 
-          <p class="pull-left">{{reservation.user.name}} wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>
+          <p class="pull-left">{{reservation.full_name}} ({{reservation.user.name}}) wants to rent a {{reservation.product.name}}. Requested at {{reservation.createdAt | date:'medium'}}</p>
           <div class="pull-right">
             <!-- Button trigger modal -->
             <a class="btn btn-success btn-sm" ng-click="openRentalModal(reservation)">Create Rental</a>

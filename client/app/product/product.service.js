@@ -57,9 +57,11 @@ angular.module('hardwarelabApp')
           return (product.quantity - (rentals.filter(filter).length + reservations.filter(filter).length));
       },
       getUserActiveRentals: function(userId) {
+        console.log(rentals);
         return rentals.filter(function(rental){ if(rental.user._id == userId) return true;});
       },
       getUserReservations: function(userId) {
+        console.log(reservations);
         return reservations.filter(function(reserv){ if(reserv.user._id == userId) return true;});
       },
       hasUserReservedProduct: function(userId,productId) {
