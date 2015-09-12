@@ -61,6 +61,9 @@ var all = {
   rental: {
     reservationTime: 60*60000, //60 min before reservation ends!
     rentalTime: 12*60*60000 //12 hours
+  },
+  userfeedback: {
+    link: process.env.GITHUB_CLIENT_ID || 'https://wearhacks.typeform.com/to/AXSQLN'
   }
 };
 

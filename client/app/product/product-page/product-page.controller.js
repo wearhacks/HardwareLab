@@ -3,18 +3,15 @@
 angular.module('hardwarelabApp')
   .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal, $modal, $FB) {
 
-    $FB.init('1627731604128082');
+    
     $scope.productService = productService;
     $scope.stock = productService.getProductStock;
     $scope.isAdmin = Auth.isAdmin;
 
-    $scope.social_url = 'http://hardwarelab.wearhacks.com'+$location.path()
     productService.getProduct($stateParams.product)
       .success(function(data){
 
         $scope.product = data;
-
-        $scope.social_title = "Hacking with "+ $scope.product.name + " on Wearhacks!"
         if(!$scope.product)
           $location.path("/product");
 
@@ -25,7 +22,7 @@ angular.module('hardwarelabApp')
     });
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
-
+    $scope.reviewUrl = 'https://wearhacks.typeform.com/to/zOKCe2';
 
 
     $scope.reserveProduct = function(product) {

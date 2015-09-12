@@ -24,7 +24,6 @@ angular.module('hardwarelabApp')
     $scope.isAdmin = Auth.isAdmin;
 
     if (!Auth.isAdmin()) {
-      console.log('DENY');
       $location.path('/');
     }
     /**

@@ -15,25 +15,7 @@ angular.module('hardwarelabApp')
     $scope.modalSuccess = Modal.confirm.successMessage();
 
 
-   // $scope.reserveProduct = function(product) {
 
-
-     /*
-      if($.isEmptyObject(Auth.getCurrentUser())) {
-        $scope.modalLogin("reserve");
-      }
-      else {
-        $scope.productService.reserveProduct(Auth.getCurrentUser()._id,product._id)
-          .error(function(message) {
-            $scope.modalError(message.error);
-            console.log(message);
-          })
-          .success(function(message){
-            $scope.modalSuccess("You successfully reserved the item.");
-          });
-      }*/
-
-     //};
 
 
   });

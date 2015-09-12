@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var fs = require('fs-extra');
 var Product = require('./product.model');
-//var imgur = require('imgur-node-api');
+var config = require('../../config/environment');
 
 // Get list of products
 exports.index = function(req, res) {
@@ -66,31 +66,10 @@ exports.destroy = function(req, res) {
     });
   });
 };
-
-exports.upload = function (req, res) {
-  /*
-  var app_path = require('../../app').get('appPath');
-  var fstream;
-  req.pipe(req.busboy);
-
-  var receivedProduct = '';
-  req.busboy.on('field', function(fieldname, val) {
-    if(fieldname === 'product') receivedProduct = val;
-  });
-  req.busboy.on('file', function (fieldname, file, filename) {
-
-    console.log("Uploading: " + filename);
-
-    //Path where image will be uploaded
-    fstream = fs.createWriteStream(app_path+ '/assets/product-images/'+receivedProduct + "-" + filename);
-    file.pipe(fstream);
-    fstream.on('close', function () {
-      console.log("Upload Finished of " + filename);
-      res.redirect('back');           //where to go next
-    });
-  });*/
-};
-
+exports.reviewlink = function(req,res) {
+  console.log('test')
+  return res.json(200,config.userfeedback);
+}
 function handleError(res, err) {
   return res.send(500, err);
 }
