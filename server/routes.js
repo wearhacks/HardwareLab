@@ -23,31 +23,7 @@ module.exports = function(app) {
    .get(errors[404]);
 
 
-  app.route('/uploads/:fileName')
-    .get(function (req, res, next) {
-      console.log('hello');
-      var filename = req.params.fileName;
-      res.sendfile('/uploads/'+ filename);
-  });
 
-
-  app.route('/upload')
-    .post(function (req, res, next) {
-
-        var fstream;
-        req.pipe(req.busboy);
-        req.busboy.on('file', function (fieldname, file, filename) {
-            console.log("Uploading: " + filename);
-
-            //Path where image will be uploaded
-            fstream = fs.createWriteStream(__dirname + '/img/' + filename);
-            file.pipe(fstream);
-            fstream.on('close', function () {
-                console.log("Upload Finished of " + filename);
-                res.redirect('back');           //where to go next
-            });
-        });
-    });
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {
