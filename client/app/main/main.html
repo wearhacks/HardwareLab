@@ -11,6 +11,9 @@
           <p class="lead">Built with <i class="fa fa-heart"></i> by WearHacks</p>
 
       </div>
+      <div><div class="alert alert-danger" role="alert">
+      We'll open the hardware lab at 11pm SHARP. All the reservations before this is not valid!
+    </div></div>
       <div ng-show="!isLogged()" class="row">
         <div id="header-buttons">
         <a class="btn btn-success btn-large" href="/login">Login</a>
@@ -30,9 +33,113 @@
 
   </div>
 </div>
-
-<footer class="footer">
+<div class="modal">
   <div class="container">
-      <p>Hardware Lab | WearHacks </p>
+  <div class="row vdivide">
+
+    <div class="col-sm-6">
+      <h3>Login</h3>
+      <form class="form" name="form" ng-submit="login(form)" novalidate>
+
+        <div class="form-group">
+          <label>Email</label>
+
+          <input type="email" name="email" class="form-control" ng-model="user.email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+
+          <input type="password" name="password" class="form-control" ng-model="user.password" required>
+        </div>
+
+        <div class="form-group has-error">
+          <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
+             Please enter your email and password.
+          </p>
+          <p class="help-block" ng-show="form.email.$error.email && submitted">
+             Please enter a valid email.
+          </p>
+
+          <p class="help-block">{{ errors.other }}</p>
+        </div>
+
+        <div>
+          <button class="btn btn-inverse btn-sm btn-login" type="submit">
+            Login
+          </button>
+          <a class="btn btn-default btn-sm btn-register" href="/signup">
+            Register
+          </a>
+        </div>
+      </form>
+      <hr>
+           <a class="btn-lg btn-github" href="" ng-click="loginOauth('github')">
+            <i class="fa fa-github-alt"></i> Connect with GitHub
+          </a>
+    </div>
+    <div class="col-sm-6">
+      <h3>Signup</h3>
+           <form class="form" name="formReg" ng-submit="register(formReg)" novalidate>
+
+        <div class="form-group" ng-class="{ 'has-success': formReg.name.$valid && submitted,
+                                            'has-error': formReg.name.$invalid && submitted }">
+          <label>Name</label>
+
+          <input type="text" name="name" class="form-control" ng-model="user.regName"
+                 required/>
+          <p class="help-block" ng-show="formReg.name.$error.required && submitted">
+            A name is required
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': formReg.email.$valid && submitted,
+                                            'has-error': formReg.email.$invalid && submitted }">
+          <label>Email</label>
+
+          <input type="email" name="email" class="form-control" ng-model="user.regEmail"
+                 required
+                 mongoose-error/>
+          <p class="help-block" ng-show="formReg.email.$error.email && submitted">
+            Doesn't look like a valid email.
+          </p>
+          <p class="help-block" ng-show="formReg.email.$error.required && submitted">
+            What's your email address?
+          </p>
+          <p class="help-block" ng-show="formReg.email.$error.mongoose">
+            {{ errors.email }}
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': formReg.password.$valid && submitted,
+                                            'has-error': formReg.password.$invalid && submitted }">
+          <label>Password</label>
+
+          <input type="password" name="password" class="form-control" ng-model="user.regPassword"
+                 ng-minlength="3"
+                 required
+                 mongoose-error/>
+          <p class="help-block"
+             ng-show="(formReg.password.$error.minlength || formReg.password.$error.required) && submitted">
+            Password must be at least 3 characters.
+          </p>
+          <p class="help-block" ng-show="formReg.password.$error.mongoose">
+            {{ errors.password }}
+          </p>
+        </div>
+
+        <div>
+          <button class="btn btn-lg btn-github" type="submit">
+            Sign up
+          </button>
+
+        </div>
+
+      </form>
+    </div>
   </div>
-</footer>
+  <hr>
+</div>
+
+</div>
+

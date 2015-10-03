@@ -119,7 +119,7 @@ exports.destroy = function(req, res) {
   ReservationRequest.findById(req.params.id, function (err, reservation_request) {
 
     var userId = req.user._id.toString();
-    if(req.user.role != 'admin' && ( reservation_request && reservation_request.user != userId )) {
+    if(req.user.role !== 'admin' && ( reservation_request && reservation_request.user !== userId )) {
       return res.send(404);
     }
     if(err) { return handleError(res, err); }

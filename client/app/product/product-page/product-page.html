@@ -1,67 +1,62 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div id="product-page">
-<div class="container-fluid">
-  <div class="jumbotron" style="background-image:url('{{product.image }}')">
-    <div class="container">
+  <div class="container-fluid">
+    <div class="jumbotron" style="background-image:url('{{product.image }}')">
+      <div class="container">
 
-     <div class="row">
-       <h1 class="editable-data">{{product.name}}</h1>
-       <!--Live edit -->
-       <a ng-show="isAdmin()" class="editable-links" href="#"
-          e-row="8" editable-textarea="product.name" blur="ignore"
-          onaftersave="productService.saveProduct(product)">
-         <i class="fa fa-pencil"></i>
-       </a>
+       <div class="row">
+         <h1 class="editable-data">{{product.name}}</h1>
+         <!--Live edit -->
+         <a ng-show="isAdmin()" class="editable-links" href="#"
+            e-row="8" editable-textarea="product.name" blur="ignore"
+            onaftersave="productService.saveProduct(product)">
+           <i class="fa fa-pencil"></i>
+         </a>
 
-     </div>
+       </div>
 
-  <div class="row">
-      <a ng-show="isAdmin()" class="editable-links" href="#"
-         e-row="8" editable-textarea="product.company" blur="ignore"
+    <div class="row">
+        <a ng-show="isAdmin()" class="editable-links" href="#"
+           e-row="8" editable-textarea="product.company" blur="ignore"
+           onaftersave="productService.saveProduct(product)">
+          <i class="fa fa-pencil"></i>
+        </a>
+          <h4>{{product.company}}</h4>
+    </div>
+    <div ng-show="isAdmin()"  class="row">
+      <a class="editable-links" href="#"
+         e-row="8" editable-textarea="product.quantity" blur="ignore"
          onaftersave="productService.saveProduct(product)">
         <i class="fa fa-pencil"></i>
       </a>
-        <h4>{{product.company}}</h4>
-  </div>
-  <div ng-show="isAdmin()"  class="row">
-    <a class="editable-links" href="#"
-       e-row="8" editable-textarea="product.quantity" blur="ignore"
-       onaftersave="productService.saveProduct(product)">
-      <i class="fa fa-pencil"></i>
-    </a>
-    <h4>Quantity: {{product.quantity}} <h4>
-  </div>
-
+      <h4>Quantity: {{product.quantity}} <h4>
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <!--Live edit -->
-      <a ng-show="isAdmin()" class="pull-right editable-links" href="#" e-row="8" editable-textarea="product.description" onaftersave="productService.saveProduct(product)"><i class="fa fa-pencil"></i></a>
-      <div class="editable-data" ng-bind-html="product.description | markdownFilter  "></div>
 
-      <br/>
-    <hr/>
-      <div class="row clearfix">
-        <div id="device-reserve" class="pull-right">
-          <a href="#" class="btn btn-primary btn-sm" ng-click="reserveProduct(product)">Reserve Product <span class="badge">{{stock(product)}} Available</span></a>
-          <a class="typeform-share btn btn-primary btn-sm" ng-href="{{reviewUrl}}" data-mode="2" target="_blank">Rate this device!</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <!--Live edit -->
+        <a ng-show="isAdmin()" class="pull-right editable-links" href="#" e-row="8" editable-textarea="product.description" onaftersave="productService.saveProduct(product)"><i class="fa fa-pencil"></i></a>
+        <div class="editable-data" ng-bind-html="product.description | markdownFilter  "></div>
+
+        <br/>
+      <hr/>
+        <div class="row clearfix">
+          <div id="device-reserve" class="pull-right">
+            <a href="#" class="btn btn-primary btn-md" ng-click="reserveProduct(product)">Reserve Product <span class="badge">{{stock(product)}} Available</span></a>
+            <a class="typeform-share btn btn-primary btn-md" ng-href="{{reviewUrl}}" data-mode="2" target="_blank">Rate this device!</a>
+
+          </div>
 
         </div>
 
       </div>
 
     </div>
+  </div>
+</div>
 
-  </div>
-</div>
-</div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p>Hardware Lab | WearHacks </p>
-  </div>
-</footer>
 
 <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'_';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}})()</script>

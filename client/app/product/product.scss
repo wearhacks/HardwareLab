@@ -1,62 +1,48 @@
 
-
-.btn {
-	border-radius:0;
-}
-
-.product {
-  width: 100%;
-  float: left;
-
-  background: rgba(165, 165, 165, 0.08);
-  margin-bottom: 3%;
-  border: 1px solid #CCC;
-  opacity:0;
-
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -ms-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
-  a,a:hover,a:focus {
-    text-decoration: none;
-  }
-  .product-title {
-    color:white;
-    text-align:center;
-    background-color: rgba(0,0,0,0.4);
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    h2 {
-
-      font-size:75px;
+.prod-container {
+    a {
+      color: #333;
     }
-    font-weight:100;
-    padding-top:20px;
-    height: 200px;
-    background-position-y: 50%;
-
-  }
-
-  .product-title:hover {
-    background-color: rgba(0,0,0,0.2);
-    transition: all 0.5s ease;
-  }
-  .image {
+    a:hover {
+      text-decoration:none;
+    }
+    h4 {
+      font-weight: bolder;
+      color: #333;
+    }
     width: 100%;
-    height: 200px;
-    background-size: 110%;
-    position: relative;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    transition: all 0.5s ease;
-  }
-  .image:hover {
-    background-size: 100%;
-    transition: all 0.5s ease;
-  }
-
+    background-color: white;
+    border: 1px solid rgba(204, 204, 204, 0.5);
+    margin: 10px 24px;
+    display: inline-block;
+    margin-right: 10px;
+    box-shadow: 1px 1px 2px rgba(204, 204, 204, 0.22);
+    transition: box-shadow 0.5s linear;
+    border-radius: 4px;
+    .image {
+          height: 176px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-y: 50%;
+        background-position-x: 50%;
+        background-color: white;
+    }
+    &:hover {
+      box-shadow: 1px 2px 4px rgba(104, 104, 104, 0.9);
+      transition: box-shadow 0.5s linear, border 0.5s linear;
+      background-color: rgba(241, 240, 240, 0.51);
+    }
+    .product-title {
+    border-top:1px solid #DDD;
+      padding-left:10px;
+          padding-left: 10px;
+    padding-top: 1px;
+    padding-bottom: 3px;
+    
+    }
+    p {
+        color: #7B7B7B;
+    }
 }
 
 .product.show {
@@ -66,8 +52,6 @@
 .products.jumbotron {
   background-image: url("/assets/images/header.jpg");
 
-  padding-top: 200px;
-  padding-bottom: 200px;
   color:white;
 
 }

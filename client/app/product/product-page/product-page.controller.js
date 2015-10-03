@@ -23,6 +23,7 @@ angular.module('hardwarelabApp')
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
     $scope.reviewUrl = 'https://wearhacks.typeform.com/to/zOKCe2';
+    
 
 
     $scope.reserveProduct = function(product) {
@@ -52,16 +53,10 @@ angular.module('hardwarelabApp')
 
 
       };
-
-
-
-  });
-
+});
 
 angular.module('hardwarelabApp')
   .controller('CreateResCtrl', function ($scope, $modalInstance, Modal, product, Auth, productService) {
-
-    'use strict';
 
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
@@ -76,8 +71,6 @@ angular.module('hardwarelabApp')
           $modalInstance.close();
         });
     }
-
-
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };

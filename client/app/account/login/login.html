@@ -1,12 +1,10 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>Login</h1>
+  <div class="row vdivide">
 
-    </div>
-    <div class="col-sm-12">
+    <div class="col-sm-6">
+      <h3>Login</h3>
       <form class="form" name="form" ng-submit="login(form)" novalidate>
 
         <div class="form-group">
@@ -33,23 +31,79 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-sm btn-login" type="submit">
+          <button class="btn btn-default btn-md btn-login" type="submit">
             Login
           </button>
-          <a class="btn btn-default btn-sm btn-register" href="/signup">
+          <a class="btn btn-default btn-md btn-register" href="/signup">
             Register
           </a>
         </div>
-
-        <hr>
-        <div>
-          <a class="btn btn-github" href="" ng-click="loginOauth('github')">
+      </form>
+      <hr>
+           <a class="btn-lg btn-github" href="" ng-click="loginOauth('github')">
             <i class="fa fa-github-alt"></i> Connect with GitHub
           </a>
+    </div>
+    <!--
+    <div class="col-sm-6">
+      <h1>Signup</h1>
+           <form class="form" name="formReg" ng-submit="register(formReg)" novalidate>
+
+        <div class="form-group" ng-class="{ 'has-success': formReg.name.$valid && regsubmitted,
+                                            'has-error': formReg.name.$invalid && regsubmitted }">
+          <label>Name</label>
+
+          <input type="text" name="name" class="form-control" ng-model="reguser.name"
+                 required/>
+          <p class="help-block" ng-show="formReg.name.$error.required && regsubmitted">
+            A name is required
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': formReg.email.$valid && submitted,
+                                            'has-error': formReg.email.$invalid && submitted }">
+          <label>Email</label>
+
+          <input type="email" name="email" class="form-control" ng-model="reguser.email"
+                 required
+                 mongoose-error/>
+          <p class="help-block" ng-show="formReg.email.$error.email && regsubmitted">
+            Doesn't look like a valid email.
+          </p>
+          <p class="help-block" ng-show="formReg.email.$error.required && regsubmitted">
+            What's your email address?
+          </p>
+          <p class="help-block" ng-show="formReg.email.$error.mongoose">
+            {{ regErrors.email }}
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': formReg.password.$valid && regsubmitted,
+                                            'has-error': formReg.password.$invalid && regsubmitted }">
+          <label>Password</label>
+
+          <input type="password" name="password" class="form-control" ng-model="reguser.password"
+                 ng-minlength="3"
+                 required
+                 mongoose-error/>
+          <p class="help-block"
+             ng-show="(formReg.password.$error.minlength || formReg.password.$error.required) && regsubmitted">
+            Password must be at least 3 characters.
+          </p>
+          <p class="help-block" ng-show="formReg.password.$error.mongoose">
+            {{ regErrors.password }}
+          </p>
+        </div>
+
+        <div>
+          <button class="btn btn-lg btn-github" type="submit">
+            Sign up
+          </button>
 
         </div>
+
       </form>
-    </div>
+    </div>-->
   </div>
   <hr>
 </div>

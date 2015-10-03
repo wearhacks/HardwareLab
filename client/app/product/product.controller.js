@@ -10,14 +10,10 @@ angular.module('hardwarelabApp')
 
     $scope.modalLogin = Modal.confirm.askToLogin(function(message) { // callback when modal is confirmed
         $location.path("/login"); //will redirect to login page, make sure your controller is using $location
-      });
+    });
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
-
-
-
-
-
+    $scope.stock = productService.getProductStock;
   });
 
 
