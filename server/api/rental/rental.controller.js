@@ -95,7 +95,10 @@ exports.create = function(req, res) {
         ReservationRequest.findById(req.body.reservation,next);
     },
     function(reservation,next) {
-      reservation.remove(next);
+      if(reservation === null)
+        return res.json(400, {error:"Reservation no longer not exist. Rental is probably created."});
+      else
+        reservation.remove(next);
     },
     function(removedRes,next) {
       Rental.create(req.body,next);
