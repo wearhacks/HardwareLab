@@ -20,7 +20,8 @@ router
 
   .get('/callback', passport.authenticate('github', {
     failureRedirect: '/signup',
-    session: true
+    session: true,
+    scope: [ 'user:email' ] 
   }), auth.setTokenCookie);
 
 module.exports = router;

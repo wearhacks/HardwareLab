@@ -52,7 +52,6 @@ exports.destroy = function(req, res) {
     if(err) { return handleError(res, err); }
     if(!product) { return res.send(404); }
     //delete images
-    console.log(module.exports);
     var filePath = app_path + product.image ;
     fs.exists(filePath, function(exists){
       if(exists)

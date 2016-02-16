@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hardwarelabApp')
-  .controller('ProductPageCtrl', function ($scope,$stateParams,$location,Auth, productService,Modal, $modal, $FB) {
+  .controller('ProductPageCtrl', function ($scope,$stateParams,$http, $location,Auth, productService,Modal, $modal, $FB) {
 
     
     $scope.productService = productService;
@@ -12,7 +12,7 @@ angular.module('hardwarelabApp')
       .success(function(data){
 
         $scope.product = data;
-        if(!$scope.product)
+        if(!$scope.product || !$scope.product.active)
           $location.path("/product");
 
       });
@@ -22,7 +22,9 @@ angular.module('hardwarelabApp')
     });
     $scope.modalError = Modal.confirm.errorMessage();
     $scope.modalSuccess = Modal.confirm.successMessage();
-    $scope.reviewUrl = 'https://wearhacks.typeform.com/to/zOKCe2';
+    $http.get('/api/config/typeform_link').success(function(data) {
+      $scope.reviewUrl = data.message;
+    });
     
 
 

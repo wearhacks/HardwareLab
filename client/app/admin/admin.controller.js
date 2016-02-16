@@ -26,6 +26,10 @@ angular.module('hardwarelabApp')
     if (!Auth.isAdmin()) {
       $location.path('/');
     }
+
+    $scope.saveProduct = function(product) {
+      productService.saveProduct(product);
+    }
     /**
       Rental requests
     **/

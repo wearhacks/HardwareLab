@@ -63,7 +63,7 @@ var all = {
     rentalTime: 12*60*60000 //12 hours
   },
   userfeedback: {
-    link: process.env.GITHUB_CLIENT_ID || 'https://wearhacks.typeform.com/to/AXSQLN'
+    link: process.env.TYPEFORM || 'https://wearhacks.typeform.com/to/AXSQLN'
   }
 };
 

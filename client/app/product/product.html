@@ -9,9 +9,9 @@
   <div class="container">
 
     
-    <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="product in productService.getProducts()">
+    <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="product in productService.getProducts()" ng-show="product.active">
 
-      <div class="prod-container" scrollproduct ng-class="{show:showProd}">
+      <div class="prod-container" scrollproduct ng-class="{show:showProd}" >
         <a ng-href="/product/{{product._id}}">
           <div class="image" style="background-image:url('{{product.image | smallerImgFilter}}')">
       

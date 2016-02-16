@@ -25,8 +25,6 @@ angular.module('hardwarelabApp')
       return a.toUpperCase().indexOf(b.toUpperCase())> -1 ;
     };
     return function (reservations, input) {
-      console.log(reservations);
-      console.log(input);
         var filtered = reservations.filter(function(d) {
 
         return (compare(d.full_name,input) ||

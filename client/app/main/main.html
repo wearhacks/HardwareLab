@@ -11,8 +11,8 @@
           <p class="lead">Built with <i class="fa fa-heart"></i> by WearHacks</p>
 
       </div>
-      <div><div class="alert alert-danger" role="alert">
-      We'll open the hardware lab at 8:30pm SHARP. All the reservations before this is not valid!
+      <div><div id="main-alert" class="alert alert-danger" role="alert">
+        {{warning }}
     </div></div>
       <div ng-show="!isLogged()" class="row">
         <div id="header-buttons">

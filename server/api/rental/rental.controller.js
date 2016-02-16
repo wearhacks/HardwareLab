@@ -149,8 +149,9 @@ exports.returnProd = function(req, res) {
   Rental.findById(req.body._id, function(err, rental) {
     if(err || !rental) { return handleError(res, err); }
 
-
     rental.returned = true;
+    rental.returnDate = Date.now();
+
     rental.save(function(err,rental) {
       if (err)return handleError(res, err);
       return res.json(200,rental);

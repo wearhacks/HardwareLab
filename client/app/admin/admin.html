@@ -116,7 +116,7 @@
                   <th>Company</th>
                   <th>Quantity</th>
                   <th>Status</th>
-                  <th>Delete</th>
+                  <th>Available</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -124,8 +124,11 @@
                   <td>{{product.name}}</td>
                   <td>{{product.company}}</td>
                   <td>{{product.quantity}}</td>
+
                   <td><img height="50" ng-src="{{product.image}}" alt=""></td>
-                  <td><a href="#" ng-click="deleteProduct(product)" class="trash"><i class="fa fa-times"></i> </a></td>
+                  <td><div class="checkbox">
+  <label><input type="checkbox" value="" ng-model="product.active" ng-change="saveProduct(product)"></label>
+</div></td>
                 </tr>
 
                 </tbody> <!-- preview content goes here-->
@@ -192,10 +195,4 @@
     </div>
 </div>
 
-
-  <footer class="footer">
-    <div class="container">
-      <p>Hardware Lab | WearHacks </p>
-    </div>
-  </footer>
 

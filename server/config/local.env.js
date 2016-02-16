@@ -18,5 +18,7 @@ module.exports = {
   IMGUR_CLIENT_ID : "b5e46e9ab73112d",
   IMGUR_CLIENT_SECRET : "cd2ffdc2f39d93211ef4c5fd5abf424c64f11f9e",
   // Control debug level for modules using visionmedia/debug
+  TYPEFORM : "https://wearhacks.typeform.com/to/AXSQLN",
+  HOME_WARNING_MESSAGE: "We'll open the hardware lab at 8:30pm SHARP. All the reservations before this is not valid!",
   DEBUG: ''
   };
